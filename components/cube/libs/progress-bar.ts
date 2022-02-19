@@ -11,6 +11,10 @@ export class ProgressBar {
     this.el = el;
     this.hide();
 
+    if (!this.el) {
+      return;
+    }
+
     const percentageEl = document.createElement('div');
     percentageEl.classList.add('progressbar-percentage');
     el.appendChild(percentageEl);
@@ -63,10 +67,14 @@ export class ProgressBar {
   }
 
   show() {
-    this.el.style.visibility = 'visible';
+    if (this.el) {
+      this.el.style.visibility = 'visible';
+    }
   }
 
   hide() {
-    this.el.style.visibility = 'hidden';
+    if (this.el) {
+      this.el.style.visibility = 'hidden';
+    }
   }
 }

@@ -20,9 +20,21 @@ canvas {
     bottom: 30px;
     font-family: 'Open Sans', sans-serif;
     user-select: none;
-    &.disable {
-        color: #aaa;
-      }
+    color: #555;
+    //&.disable {
+    //    color: #aaa;
+    //}
+}
+
+#pending {
+    position: absolute;
+    right: 35px;
+    top: 30px;
+    font-family: 'Open Sans', sans-serif;
+    user-select: none;
+    //&.disable {
+    //    color: #aaa;
+    //}
 }
 
 @media screen and (max-width: 768px) {
