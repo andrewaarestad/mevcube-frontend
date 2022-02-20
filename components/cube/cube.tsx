@@ -7,19 +7,27 @@ import * as THREE from 'three';
 // @ts-ignore
 import TWEEN from '@tweenjs/tween.js';
 
-import {debounce, horizontalRotationAngle, setOpacity, getClosestAxis, toRotation, randomNotation} from './utils';
+import {
+  debounce,
+  horizontalRotationAngle,
+  setOpacity,
+  getClosestAxis,
+  toRotation,
+  randomNotation,
+  getNotation
+} from './utils';
 import {RubikCubeModel} from './models/rubik-cube-model';
 import {LayerModel} from './models/layer-model';
 import {Axis, NotationBase, Toward} from './types';
 import {ProgressBar} from './libs/progress-bar';
 import {Router} from './libs/router';
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import PendingMoves from "./pending-moves";
+import {useState} from "react";
+import {cubeSlice} from "../../store/slices/cube";
+import {useAppDispatch} from "../../store";
 
-const notationTable: {[key in Axis]: [NotationBase, Toward][]} = {
-  x: [['L', 1], ['M', 1], ['R', -1]],
-  y: [['D', 1], ['E', 1], ['U', -1]],
-  z: [['B', 1], ['S', -1], ['F', -1]],
-};
+
 
 const minMoveDistance = 10;
 const rotationRadPerPx = 0.01;
@@ -32,6 +40,11 @@ const debug = true;
 
 
 export default function Cube() {
+
+  // const [pendingMoves, setPendingMoves] = useState<Array<string>>([]);
+  // const pendingMoves: Array<string> = [];
+
+  const dispatch = useAppDispatch();
 
   const router = new Router();
 
@@ -111,81 +124,6 @@ export default function Cube() {
     renderer.setSize(screenWidth, screenHeight);
   }));
 
-  // const progressBarEl = document.querySelector('#progressbar') as HTMLElement;
-  // if (progressBarEl) {
-  //   const progress = new ProgressBar(progressBarEl);
-  //
-  // }
-
-  let disable = false;
-  const ribbonEl = document.querySelector('#ribbon');
-  function lock(func: Function) {
-    return async function() {
-      if (disable) {
-        return;
-      }
-
-      disable = true;
-      ribbonEl.classList.add('disable');
-      try {
-        await func();
-      } finally {
-        disable = false;
-        ribbonEl.classList.remove('disable');
-      }
-    };
-  }
-
-  // const randomEl = document.querySelector('#random');
-  // randomEl.addEventListener('click', lock(async () => {
-  //   draggable = false;
-  //   // progress.start();
-  //
-  //   let i = 0;
-  //   let lastNotation = '';
-  //   const total = 20;
-  //   while (i < total) {
-  //     const notation = randomNotation();
-  //
-  //     if (lastNotation && notation[0] === lastNotation[0]) {
-  //       continue;
-  //     }
-  //     lastNotation = notation;
-  //
-  //
-  //     const [layerRorationAxis, axisValue, rotationRad] = toRotation(notation);
-  //     rubikCube.move(notation);
-  //
-  //     router.search.fd = rubikCube.asString();
-  //
-  //     layerGroup.group(layerRorationAxis, axisValue, cubeletModels);
-  //     const promise = rotationTransition(layerRorationAxis, rotationRad);
-  //
-  //     i++;
-  //     // progress.setPercentage(i / total);
-  //     await promise;
-  //   }
-  //
-  //   // progress.done();
-  //   mouseTarget = null;
-  //   layerRorationAxis = null;
-  //   mouseMoveAxis = null;
-  //   draggable = true;
-  // }));
-
-  // const resetEl = document.querySelector('#reset');
-  // resetEl.addEventListener('click', lock(async function() {
-  //   scene.remove(rubikCube.model);
-  //   rubikCube.dispose();
-  //   rubikCube = new RubikCubeModel();
-  //   cubeletModels = rubikCube.model.children;
-  //   scene.add(rubikCube.model);
-  //
-  //   console.log('reset to state: ', rubikCube.colors);
-  //
-  //   window.history.replaceState('', '', './');
-  // }));
-
 
   renderer.domElement.addEventListener('mousedown', function() {
     handleMouseDown();
@@ -233,32 +171,6 @@ export default function Cube() {
     layerGroup.initRotation();
   }
 
-  function getNotation(axis: 'x' | 'y' | 'z', value: number, sign: number, endDeg: number) {
-    if (endDeg < 90) {
-      throw new Error(`Wrong endDeg: ${endDeg}`);
-    }
-    // -1 0 1 -> 0 1 2
-    const index = value + 1;
-    const layerRotationNotation = notationTable[axis][index];
-    let notation = '';
-    // Use url search params to record cube colors
-    if (endDeg > 0 && layerRotationNotation) {
-      let toward = layerRotationNotation[1];
-      if (sign < 0) {
-        toward *= -1;
-      }
-      let baseStr = layerRotationNotation[0];
-      if (toward< 0) {
-        baseStr += `'`;
-      }
-      baseStr += ' ';
-      for (let i = 0; i < Math.floor(endDeg / 90); i++) {
-        notation += baseStr;
-      }
-    }
-    return notation;
-  }
-
   async function handleMouseUp() {
     if (debug && mouseTarget) {
       const cubeletModel = mouseTarget.object;
@@ -296,6 +208,11 @@ export default function Cube() {
       const value = position[layerRorationAxis];
       const notation = getNotation(layerRorationAxis, value, sign, endDeg);
       rubikCube.move(notation);
+
+
+      dispatch(cubeSlice.actions.addPendingMove(notation));
+      // pendingMoves.push(notation);
+      // console.log('pendingMoves: ', pendingMoves);
 
       router.search.fd = rubikCube.asString();
     }
@@ -342,7 +259,7 @@ export default function Cube() {
       mousedownCoords.copy(mouseCoords);
 
       mouseTarget = intersects[1];
-      console.log('Setting mouse target: ', mouseTarget, intersects);
+      // console.log('Setting mouse target: ', mouseTarget, intersects);
       if (debug) {
         const cubeletModel = mouseTarget.object as THREE.Mesh;
         setOpacity(cubeletModel, 0.5);
@@ -446,10 +363,10 @@ export default function Cube() {
       const value = mouseTarget.object.position[layerRorationAxis];
       layerGroup.group(layerRorationAxis, value, cubeletModels);
 
-      console.log('mouse target: ', mouseTarget);
-      console.log('rotating face: ', value, 'axis: ', layerRorationAxis, 'positions: ', mouseTarget.object.position);
+      // console.log('mouse target: ', mouseTarget);
+      // console.log('rotating face: ', value, 'axis: ', layerRorationAxis, 'positions: ', mouseTarget.object.position);
 
-      console.log('lockRotationDirection: ', layerRorationAxis, layerRotationAxisToward, mouseTargetFaceDirection, value, mouseTarget.object)
+      // console.log('lockRotationDirection: ', layerRorationAxis, layerRotationAxisToward, mouseTargetFaceDirection, value, mouseTarget.object)
     } else {
       let mouseMoveDistance = mouseCoords[mouseMoveAxis] - mousedownCoords[mouseMoveAxis];
       // Get the moving distance by the camera rotation angle relative to origin when clicking on the top face and down face
@@ -507,6 +424,7 @@ export default function Cube() {
       const [layerRorationAxis, axisValue, rotationRad] = toRotation(notation);
       rubikCube.move(notation);
 
+
       router.search.fd = rubikCube.asString();
 
       layerGroup.group(layerRorationAxis, axisValue, cubeletModels);
@@ -524,12 +442,13 @@ export default function Cube() {
     draggable = true;
   };
 
+  console.log('Cube.render');
+
   return (
     <>
 
-      <div id="pending">
-        <p>Pending Moves: {rubikCube.queuedMoves.join(' ')}</p>
-      </div>
+      <PendingMoves />
+
 
       <div id="ribbon">
         <div className="btn" id="random" onClick={() => handleRandomClick()}>Random</div>

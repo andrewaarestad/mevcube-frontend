@@ -159,3 +159,36 @@ export function randomRotation(): [Axis, number] {
   const rad = randomChoice(rads);
   return [axis, rad * toward];
 }
+
+
+const notationTable: {[key in Axis]: [NotationBase, Toward][]} = {
+  x: [['L', 1], ['M', 1], ['R', -1]],
+  y: [['D', 1], ['E', 1], ['U', -1]],
+  z: [['B', 1], ['S', -1], ['F', -1]],
+};
+
+export function getNotation(axis: 'x' | 'y' | 'z', value: number, sign: number, endDeg: number) {
+  if (endDeg < 90) {
+    throw new Error(`Wrong endDeg: ${endDeg}`);
+  }
+  // -1 0 1 -> 0 1 2
+  const index = value + 1;
+  const layerRotationNotation = notationTable[axis][index];
+  let notation = '';
+  // Use url search params to record cube colors
+  if (endDeg > 0 && layerRotationNotation) {
+    let toward = layerRotationNotation[1];
+    if (sign < 0) {
+      toward *= -1;
+    }
+    let baseStr = layerRotationNotation[0];
+    if (toward< 0) {
+      baseStr += `'`;
+    }
+    baseStr += ' ';
+    for (let i = 0; i < Math.floor(endDeg / 90); i++) {
+      notation += baseStr;
+    }
+  }
+  return notation;
+}

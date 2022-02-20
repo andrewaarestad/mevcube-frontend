@@ -67,7 +67,7 @@ export class Router {
     }
 
     get search() {
-      console.log('current search: ', this.#search);
+      // console.log('current search: ', this.#search);
       return this.#search;
     }
 
@@ -80,7 +80,7 @@ export class Router {
     }
 
     set hash(value) {
-      console.log('setting hash: ', value);
+      // console.log('setting hash: ', value);
       this.#hash = value;
       this.update();
     }
@@ -88,7 +88,7 @@ export class Router {
     update() {
       const searchStr = serializeParams(this.search);
       const hashStr = window.encodeURIComponent(this.#hash);
-      console.log('updating from hash: ', hashStr);
+      // console.log('updating from hash: ', hashStr);
       let url = '#';
       if (this.#path) {
         url += this.path;
@@ -102,7 +102,7 @@ export class Router {
       if (url === '#') {
         url = '';
       }
-      console.log('setting url: ', url);
+      // console.log('setting url: ', url);
       // history.replaceState may add multiple history when the initial url doesn't have '#' .
       // window.history.replaceState(null, '', url);
       window.location.replace(url);
