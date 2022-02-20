@@ -33,7 +33,7 @@ export interface Cubelet {
 export class RubikCube {
   cubelets: Cubelet[] = [];
   colors: string[];
-  queuedMoves: string[] = [];
+  // queuedMoves: string[] = [];
   constructor(colorStr?: string) {
     if (!colorStr) {
       colorStr = 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB';
@@ -126,10 +126,10 @@ export class RubikCube {
   }
 
   move(notationStr: string) {
-    console.log('move: ', notationStr);
+    // console.log('move: ', notationStr);
     const notations = notationStr.trim().split(' ');
-    this.queuedMoves.push(...notations);
-    console.log('queued moves: ', this.queuedMoves);
+    // this.queuedMoves.push(...notations);
+    // console.log('queued moves: ', this.queuedMoves);
     for (const i of notations) {
       let toward = 1;
       let rotationTimes = 1;

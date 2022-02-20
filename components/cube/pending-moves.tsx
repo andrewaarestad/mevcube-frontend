@@ -10,7 +10,7 @@ export default function PendingMoves() {
 
   const {pendingMoves} = useTypedSelector(state => state.cube);
 
-  console.log('PendingMoves.render: ', pendingMoves);
+  // console.log('PendingMoves.render: ', pendingMoves);
 
   return (
 

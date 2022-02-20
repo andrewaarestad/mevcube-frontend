@@ -37,6 +37,17 @@ canvas {
     //}
 }
 
+#current {
+    position: absolute;
+    right: 35px;
+    top: 50px;
+    font-family: 'Open Sans', sans-serif;
+    user-select: none;
+    //&.disable {
+    //    color: #aaa;
+    //}
+}
+
 @media screen and (max-width: 768px) {
     #ribbon {
         left: 50%;
