@@ -1,36 +1,33 @@
 import {useWallet} from "use-wallet";
 import {ethers} from "ethers";
 
-import * as cubeAbi from '../abis/MevCube.json'
 import {useEffect} from "react";
+import {useAppDispatch} from "../store";
+import {pollCubeContract} from "../thunks/poll-cube-contract";
+import {useTypedSelector} from "../store/reducers";
 
 export const CubeProvider = (): null => {
 
-  console.log('CubeProvider.render');
+  // console.log('CubeProvider.render');
 
   const wallet = useWallet()
+  const dispatch = useAppDispatch();
 
-  const contractAddress = '0x0E801D84Fa97b50751Dbf25036d067dCf18858bF';
-
-  console.log('ethereum: ', wallet.ethereum);
-  console.log('wallet: ', wallet);
+  const {isLoadingInitialCubeContractState, isRefreshingCubeState} = useTypedSelector(state => state.cube.flags)
 
 
-
-  const pollCubeContract = async() => {
+  const poll = async() => {
+    // console.log('poll()')
     if (wallet.ethereum) {
-      const provider = new ethers.providers.JsonRpcProvider();
-      const contract = new ethers.Contract(contractAddress, cubeAbi.abi, provider.getSigner());
-      const result = await contract.getState();
-      console.log('contract state: ', result);
+      dispatch(pollCubeContract());
     } else {
-      console.log('not connected');
+      // console.log('not connected');
     }
   }
 
   useEffect(() => {
     const pollInterval = setInterval(() => {
-      pollCubeContract()
+      poll()
       .catch(err => {
         console.error('Error polling cube contract: ', err);
       })
@@ -39,7 +36,13 @@ export const CubeProvider = (): null => {
     return () => {
       clearInterval(pollInterval);
     }
-  })
+  }, [])
+
+  if (isLoadingInitialCubeContractState && !isRefreshingCubeState) {
+    // Call this outside render loop
+    setTimeout(poll, 1);
+    // poll();
+  }
 
   return null;
 }

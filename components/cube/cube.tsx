@@ -5,10 +5,14 @@ import {cubeSlice} from "../../store/slices/cube";
 import {useAppDispatch} from "../../store";
 import {CubeDomElement} from "./cube-dom-element";
 import {CurrentState} from "./current-state";
+import {useEffect} from "react";
+import {useTypedSelector} from "../../store/reducers";
 
 export default function Cube() {
 
   const dispatch = useAppDispatch();
+
+  const {currentContractState} = useTypedSelector(state => state.cube);
 
   CubeDomElement.delegate = {
     onUserMove(moves: string[], state: string) {
@@ -19,6 +23,14 @@ export default function Cube() {
       dispatch(cubeSlice.actions.setCurrentScreenState(state));
     }
   }
+
+  useEffect(() => {
+    CubeDomElement.reset(currentContractState);
+    CubeDomElement.show();
+    return () => {
+      CubeDomElement.hide();
+    }
+  }, [])
 
   const onClickRandom = () => {
     CubeDomElement.random()
@@ -35,7 +47,7 @@ export default function Cube() {
     CubeDomElement.reset()
   }
 
-  console.log('Cube.render');
+  // console.log('Cube.render');
 
   return (
     <>

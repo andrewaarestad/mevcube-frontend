@@ -30,6 +30,17 @@ interface ICubeDomElementDelegate {
 
 export class CubeDomElement {
   public static delegate?: ICubeDomElementDelegate
+  private static domElement?: HTMLCanvasElement;
+
+  public static show() {
+    // console.log('CubeDomElement.show()');
+    this.domElement = document.body.appendChild(renderer.domElement);
+  }
+
+  public static hide() {
+    console.log('CubeDomElement.hide()');
+    this.domElement.remove();
+  }
 
   public static reset(state?: string) {
     scene.remove(rubikCube.model);
@@ -135,7 +146,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(screenWidth, screenHeight);
 renderer.setPixelRatio( window.devicePixelRatio );
-document.body.appendChild(renderer.domElement);
+// const domElement = document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
