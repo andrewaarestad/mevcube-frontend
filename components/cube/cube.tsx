@@ -7,10 +7,13 @@ import {CubeDomElement} from "./cube-dom-element";
 import {CurrentState} from "./current-state";
 import {useEffect} from "react";
 import {useTypedSelector} from "../../store/reducers";
+import {doScrambleCube, scrambleCube} from "../../thunks/scramble-cube";
+import {useWallet} from "use-wallet";
 
 export default function Cube() {
 
   const dispatch = useAppDispatch();
+  const {ethereum, account} = useWallet();
 
   const {currentContractState} = useTypedSelector(state => state.cube);
 
@@ -31,6 +34,12 @@ export default function Cube() {
       CubeDomElement.hide();
     }
   }, [])
+
+  const onClickScramble = () => {
+    console.log('dispatch scrambleCube: ', ethereum);
+    doScrambleCube(dispatch, ethereum, account);
+    // dispatch(scrambleCube(ethereum));
+  }
 
   const onClickRandom = () => {
     CubeDomElement.random()
@@ -57,6 +66,7 @@ export default function Cube() {
 
 
       <div id="ribbon">
+        <div className="btn" id="scramble" onClick={() => onClickScramble()}>Scramble</div>
         <div className="btn" id="random" onClick={() => onClickRandom()}>Random</div>
         <div className="btn" id="reset" onClick={() => onClickReset()}>Reset</div>
       </div>
