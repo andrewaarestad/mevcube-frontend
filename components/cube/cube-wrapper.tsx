@@ -13,7 +13,7 @@ import Cube from "./cube";
 
 export function CubeWrapper() {
 
-  console.log('CubeWrapper.render');
+  // console.log('CubeWrapper.render');
   return (
     // <CubeContext.Provider value={cubeState}>
       <Cube/>

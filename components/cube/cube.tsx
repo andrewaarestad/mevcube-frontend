@@ -7,18 +7,23 @@ import {CubeDomElement} from "./cube-dom-element";
 import {CurrentState} from "./current-state";
 import {useEffect} from "react";
 import {useTypedSelector} from "../../store/reducers";
-import {doScrambleCube} from "../../thunks/scramble-cube";
+import {sendScrambleCube} from "../../thunks/scramble-cube";
 import {useWallet} from "use-wallet";
+import {sendResetCube} from "../../thunks/reset-cube";
+import {pollCubeContract} from "../../thunks/poll-cube-contract";
+import Button from "../Button";
+import styled from "styled-components";
+import Spacer from "../Spacer";
 
 export default function Cube() {
 
   const dispatch = useAppDispatch();
   const {ethereum, account, chainId} = useWallet();
 
-  console.log('ethereum: ', ethereum)
-  console.log('chainId: ', chainId)
+  // console.log('ethereum: ', ethereum)
+  // console.log('chainId: ', chainId)
 
-  const {currentContractState} = useTypedSelector(state => state.cube);
+  const {currentContractState, pendingMovesResetCounter} = useTypedSelector(state => state.cube);
 
   CubeDomElement.delegate = {
     onUserMove(moves: string[], state: string) {
@@ -31,33 +36,45 @@ export default function Cube() {
   }
 
   useEffect(() => {
+    console.log('Cube: contract state changed');
     CubeDomElement.reset(currentContractState);
     CubeDomElement.show();
+    dispatch(cubeSlice.actions.resetPendingMoves())
     return () => {
       CubeDomElement.hide();
     }
-  }, [])
+  }, [currentContractState])
+
+  useEffect(() => {
+
+    CubeDomElement.reset(currentContractState);
+  }, [pendingMovesResetCounter])
 
   const onClickScramble = () => {
-    console.log('dispatch scrambleCube: ', ethereum);
-    doScrambleCube(dispatch, ethereum, account);
-    // dispatch(scrambleCube(ethereum));
-  }
-
-  const onClickRandom = () => {
-    CubeDomElement.random()
-    .then(() => {
-      console.log('done randomizing');
-    })
+    sendScrambleCube(dispatch, ethereum, account)
+    .then(() => dispatch(pollCubeContract()))
     .catch(err => {
-      console.error('Error randomizing: ', err);
+      console.error('Error scrambling cube: ', err);
     })
   }
 
   const onClickReset = () => {
-    dispatch(cubeSlice.actions.reset());
-    CubeDomElement.reset()
+    sendResetCube(dispatch, ethereum, account)
+    .then(() => dispatch(pollCubeContract()))
+    .catch(err => {
+      console.error('Error resetting cube: ', err);
+    })
   }
+
+  // const onClickRandom = () => {
+  //   CubeDomElement.random()
+  //   .then(() => {
+  //     console.log('done randomizing');
+  //   })
+  //   .catch(err => {
+  //     console.error('Error randomizing: ', err);
+  //   })
+  // }
 
   // console.log('Cube.render');
 
@@ -65,14 +82,31 @@ export default function Cube() {
     <>
 
       <PendingMoves />
-      <CurrentState/>
+      {/*<CurrentState/>*/}
 
 
-      <div id="ribbon">
-        <div className="btn" id="scramble" onClick={() => onClickScramble()}>Scramble</div>
-        <div className="btn" id="random" onClick={() => onClickRandom()}>Random</div>
-        <div className="btn" id="reset" onClick={() => onClickReset()}>Reset</div>
-      </div>
+      <StyledRibbonWrapper>
+        <Button onClick={() => onClickScramble()}>
+          Scramble
+        </Button>
+        <Spacer size={"sm"}/>
+        <Button onClick={() => onClickReset()}>
+          Cheat
+        </Button>
+      </StyledRibbonWrapper>
+
+
+      {/*<div id="ribbon">*/}
+      {/*  <Button onClick={() => onClickScramble()}>*/}
+      {/*    Scramble*/}
+      {/*  </Button>*/}
+      {/*  <Button onClick={() => onClickReset()}>*/}
+      {/*    Reset*/}
+      {/*  </Button>*/}
+      {/*  /!*<div className="btn" id="scramble" onClick={() => onClickScramble()}>Scramble</div>*!/*/}
+      {/*  /!*<div className="btn" id="random" onClick={() => onClickRandom()}>Random</div>*!/*/}
+      {/*  /!*<div className="btn" id="reset" onClick={() => onClickReset()}>Reset</div>*!/*/}
+      {/*</div>*/}
 
 
 
@@ -81,3 +115,16 @@ export default function Cube() {
     </>
   )
 }
+
+const StyledRibbonWrapper = styled.div`
+  position: fixed;
+  right: 35px;
+  bottom: 30px;
+  
+  //display: flex;
+  flex-wrap: wrap;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    flex-direction: column;
+    flex-wrap: none;
+  }
+`

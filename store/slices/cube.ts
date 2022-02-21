@@ -12,6 +12,7 @@ interface ICubeStateFlags {
 
 interface CubeState {
   pendingMoves: Array<string>
+  pendingMovesResetCounter: number
   currentScreenState: string
   currentContractState: string | undefined
   flags: ICubeStateFlags
@@ -20,6 +21,7 @@ interface CubeState {
 
 const initialState: CubeState = {
   pendingMoves: [],
+  pendingMovesResetCounter: 0,
   currentScreenState: defaultCubeState,
   currentContractState: undefined,
   flags: {
@@ -36,11 +38,12 @@ export const cubeSlice = createSlice({
       state.pendingMoves.push(...action.payload);
     },
     setCurrentScreenState: (state, action: PayloadAction<string>) => {
-      state.currentScreenState = action.payload
+      state.currentScreenState = action.payload;
     },
-    reset: (state) => {
-      state.currentScreenState = defaultCubeState;
+    resetPendingMoves: (state) => {
       state.pendingMoves = [];
+      state.pendingMovesResetCounter++;
+      state.currentScreenState = state.currentContractState;
     }
   },
   extraReducers: ({addCase}) => {

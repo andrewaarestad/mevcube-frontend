@@ -1,5 +1,6 @@
 import {createAsyncThunk, Dispatch} from "@reduxjs/toolkit";
 import {MevCube} from "../contracts/mev-cube";
+import {pollCubeContract} from "./poll-cube-contract";
 
 
 interface IScrambleCubeProps {
@@ -32,15 +33,12 @@ interface IScrambleCubeProps {
 //   }
 // );
 
-export const sendScrambleCube = async (dispatch: Dispatch, ethereum: any, account: string) => {
-  console.log('sendScrambleCube', ethereum);
-
+export const sendResetCube = async (dispatch: Dispatch, ethereum: any, account: string) => {
+  console.log('doResetCube', ethereum);
 
   const contract = MevCube.getContract(ethereum);
 
+  const txHash = await contract.methods.reset().send({from: account});
+  console.log('reset txHash: ', txHash);
 
-  // console.log('calling contract.scramble()');
-  // console.log('functions: ', contract, contract.methods)
-  const txHash = await contract.methods.scramble().send({from: account});
-  // console.log('scramble txHash: ', txHash);
 }
