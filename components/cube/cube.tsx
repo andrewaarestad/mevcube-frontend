@@ -7,13 +7,16 @@ import {CubeDomElement} from "./cube-dom-element";
 import {CurrentState} from "./current-state";
 import {useEffect} from "react";
 import {useTypedSelector} from "../../store/reducers";
-import {doScrambleCube, scrambleCube} from "../../thunks/scramble-cube";
+import {doScrambleCube} from "../../thunks/scramble-cube";
 import {useWallet} from "use-wallet";
 
 export default function Cube() {
 
   const dispatch = useAppDispatch();
-  const {ethereum, account} = useWallet();
+  const {ethereum, account, chainId} = useWallet();
+
+  console.log('ethereum: ', ethereum)
+  console.log('chainId: ', chainId)
 
   const {currentContractState} = useTypedSelector(state => state.cube);
 

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {pollCubeContract} from "../../thunks/poll-cube-contract";
-import {scrambleCube} from "../../thunks/scramble-cube";
+// import {scrambleCube} from "../../thunks/scramble-cube";
 
 const defaultCubeState = 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB';
 
@@ -44,8 +44,11 @@ export const cubeSlice = createSlice({
     }
   },
   extraReducers: ({addCase}) => {
-    addCase(scrambleCube.rejected, (state, error) => {
-      console.log('scrambleCube.rejected: ', error.error);
+    // addCase(scrambleCube.rejected, (state, error) => {
+    //   console.log('scrambleCube.rejected: ', error.error);
+    // });
+    addCase(pollCubeContract.rejected, (state, error) => {
+      console.log('pollCubeContract.rejected: ', error.error);
     });
     addCase(pollCubeContract.pending, (state, action) => {
       state.flags.isRefreshingCubeState = true;
