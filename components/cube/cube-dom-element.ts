@@ -218,6 +218,19 @@ async function rotationTransition(axis: Axis, endRad: number) {
   layerGroup.initRotation();
 }
 
+function convertNotationsToContractFormat(notations: Array<string>) {
+  // console.log('Converting: ', notations);
+  return notations.map(notation => {
+    console.log('converting: ', notation);
+    if (notation.length === 1) {
+      return notation;
+    } else {
+      return notation[0].toLowerCase();
+    }
+    // return notation;
+  })
+}
+
 async function handleMouseUp() {
   if (debug && mouseTarget) {
     const cubeletModel = mouseTarget.object;
@@ -258,7 +271,7 @@ async function handleMouseUp() {
 
     const notations = notation.trim().split(' ');
 
-    CubeDomElement.delegate?.onUserMove(notations, rubikCube.asString());
+    CubeDomElement.delegate?.onUserMove(convertNotationsToContractFormat(notations), rubikCube.asString());
 
     // dispatch(cubeSlice.actions.addPendingMove(notation));
     // pendingMoves.push(notation);

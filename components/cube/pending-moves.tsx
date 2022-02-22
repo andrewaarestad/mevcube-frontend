@@ -6,17 +6,27 @@ import styled from "styled-components";
 import Spacer from "../Spacer";
 import {useAppDispatch} from "../../store";
 import {cubeSlice} from "../../store/slices/cube";
+import {sendSubmitSolution} from "../../thunks/submit-solution";
+import {useWallet} from "use-wallet";
+import {pollCubeContract} from "../../thunks/poll-cube-contract";
 
 
 export default function PendingMoves() {
 
   const dispatch = useAppDispatch();
   const {pendingMoves} = useTypedSelector(state => state.cube);
+  const {ethereum, account} = useWallet();
 
   // console.log('PendingMoves.render: ', pendingMoves);
 
   const onClickSubmitSolution = () => {
-
+    sendSubmitSolution(pendingMoves, dispatch, ethereum, account)
+    .then(() => {
+      dispatch(pollCubeContract())
+    })
+    .catch(err => {
+      console.log('Error sending solution: ', err);
+    })
   }
 
   const onClickReset = () => {
@@ -26,19 +36,21 @@ export default function PendingMoves() {
   return (
 
     <div id="pending">
-      <p>Pending Moves: {pendingMoves.join(' ')}</p>
 
       {pendingMoves.length > 0 && (
-        <StyledPendingMovesButtonsWrapper>
+        <>
+          <p>Pending Moves: {pendingMoves.join(' ')}</p>
+          <StyledPendingMovesButtonsWrapper>
 
-          <Button onClick={() => onClickSubmitSolution()}>
-            Submit Solution
-          </Button>
-          <Spacer size={"sm"}/>
-          <Button onClick={() => onClickReset()}>
-            Reset
-          </Button>
-        </StyledPendingMovesButtonsWrapper>
+            <Button onClick={() => onClickSubmitSolution()}>
+              Submit Solution
+            </Button>
+            <Spacer size={"sm"}/>
+            <Button onClick={() => onClickReset()}>
+              Reset
+            </Button>
+          </StyledPendingMovesButtonsWrapper>
+        </>
       )}
 
     </div>

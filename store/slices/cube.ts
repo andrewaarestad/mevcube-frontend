@@ -35,7 +35,19 @@ export const cubeSlice = createSlice({
   initialState,
   reducers: {
     addPendingMoves: (state, action: PayloadAction<string[]>) => {
-      state.pendingMoves.push(...action.payload);
+      const currentMoves = [...state.pendingMoves, ...action.payload];
+      state.pendingMoves = [];
+      for (let ii=0; ii<currentMoves.length; ii++) {
+        if (ii === currentMoves.length-1) {
+          state.pendingMoves.push(currentMoves[ii]);
+        } else {
+          if (currentMoves[ii].toLowerCase() === currentMoves[ii+1].toLowerCase()) {
+            ii++;
+            continue;
+          }
+          state.pendingMoves.push(currentMoves[ii]);
+        }
+      }
     },
     setCurrentScreenState: (state, action: PayloadAction<string>) => {
       state.currentScreenState = action.payload;

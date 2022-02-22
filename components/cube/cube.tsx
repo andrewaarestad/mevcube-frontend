@@ -26,10 +26,12 @@ export default function Cube() {
   const {currentContractState, pendingMovesResetCounter} = useTypedSelector(state => state.cube);
 
   CubeDomElement.delegate = {
+    // triggered by user interacting with the cube
     onUserMove(moves: string[], state: string) {
       dispatch(cubeSlice.actions.addPendingMoves(moves));
       dispatch(cubeSlice.actions.setCurrentScreenState(state));
     },
+    // triggered by automatic state changes e.g. randomizer
     onStateChange(state: string) {
       dispatch(cubeSlice.actions.setCurrentScreenState(state));
     }
