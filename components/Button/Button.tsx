@@ -101,15 +101,18 @@ interface StyledButtonProps {
 
 const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
-  background-color: ${props => props.theme.color.grey[200]};
-  border: 0;
-  border-radius: 12px;
+  background-color: ${props => props.theme.color.grey[10]};
+  border-width: 2px;
+  border-radius: 8px;
+  border-color: ${props => props.theme.color.grey[100]};
   // box-shadow: ${props => props.boxShadow};
-  color: ${props => !props.disabled ? props.color : `${props.color}55`};
+  // color: ${props => !props.disabled ? props.color : `${props.color}55`};
+  color: ${props => props.theme.color.grey[100]};
   cursor: pointer;
   display: flex;
   font-size: ${props => props.fontSize}px;
-  font-weight: 700;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  //font-weight: 700;
   height: ${props => props.size}px;
   justify-content: center;
   outline: none;
@@ -119,6 +122,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   width: 100%;
   &:hover {
     background-color: ${props => props.theme.color.grey[100]};
+    color: ${props => props.theme.color.grey[10]};
   }
 `
 

@@ -3,6 +3,10 @@ body {
     margin: 0;
     font-size: 16px;
     color: #333;
+
+    background: #F1F3F3;
+
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
 canvas {
@@ -18,7 +22,7 @@ canvas {
     position: fixed;
     right: 35px;
     bottom: 30px;
-    font-family: 'Open Sans', sans-serif;
+    //font-family: 'Open Sans', sans-serif;
     user-select: none;
     color: #555;
     //&.disable {
@@ -26,22 +30,12 @@ canvas {
     //}
 }
 
-#pending {
-    position: absolute;
-    right: 35px;
-    top: 30px;
-    font-family: 'Open Sans', sans-serif;
-    user-select: none;
-    //&.disable {
-    //    color: #aaa;
-    //}
-}
 
 #current {
     position: absolute;
     right: 35px;
     top: 50px;
-    font-family: 'Open Sans', sans-serif;
+    //font-family: 'Open Sans', sans-serif;
     user-select: none;
     //&.disable {
     //    color: #aaa;

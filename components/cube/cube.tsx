@@ -4,7 +4,6 @@ import PendingMoves from "./pending-moves";
 import {cubeSlice} from "../../store/slices/cube";
 import {useAppDispatch} from "../../store";
 import {CubeDomElement} from "./cube-dom-element";
-import {CurrentState} from "./current-state";
 import {useEffect} from "react";
 import {useTypedSelector} from "../../store/reducers";
 import {sendScrambleCube} from "../../thunks/scramble-cube";
@@ -84,18 +83,20 @@ export default function Cube() {
     <>
 
       <PendingMoves />
-      {/*<CurrentState/>*/}
 
 
-      <StyledRibbonWrapper>
-        <Button onClick={() => onClickScramble()}>
-          Scramble
-        </Button>
-        <Spacer size={"sm"}/>
-        <Button onClick={() => onClickReset()}>
-          Cheat
-        </Button>
-      </StyledRibbonWrapper>
+      {account && (
+        <StyledRibbonWrapper>
+          <Button onClick={() => onClickScramble()}>
+            Scramble
+          </Button>
+          <Spacer size={"sm"}/>
+          <Button onClick={() => onClickReset()}>
+            Cheat
+          </Button>
+        </StyledRibbonWrapper>
+      )}
+
 
 
       {/*<div id="ribbon">*/}

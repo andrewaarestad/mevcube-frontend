@@ -35,27 +35,50 @@ export default function PendingMoves() {
 
   return (
 
-    <div id="pending">
+    <StyledPendingMovesWrapper>
 
       {pendingMoves.length > 0 && (
         <>
-          <p>Pending Moves: {pendingMoves.join(' ')}</p>
-          <StyledPendingMovesButtonsWrapper>
 
-            <Button onClick={() => onClickSubmitSolution()}>
-              Submit Solution
-            </Button>
-            <Spacer size={"sm"}/>
-            <Button onClick={() => onClickReset()}>
-              Reset
-            </Button>
-          </StyledPendingMovesButtonsWrapper>
+          {account ? (
+
+            <StyledPendingMovesButtonsWrapper>
+
+              <Button onClick={() => onClickSubmitSolution()}>
+                Submit Solution
+              </Button>
+              <Spacer size={"sm"}/>
+              <Button onClick={() => onClickReset()}>
+                Reset
+              </Button>
+            </StyledPendingMovesButtonsWrapper>
+          ) : (
+            <div>
+              <p>Connect account to submit solution</p>
+            </div>
+          )}
+
+
+          <p>Pending Moves: {pendingMoves.join(' ')}</p>
         </>
       )}
-
-    </div>
+    </StyledPendingMovesWrapper>
   )
 }
+
+const StyledPendingMovesWrapper = styled.div`
+  position: fixed;
+  right: 35px;
+  bottom: 30px;
+
+  //display: flex;
+  //flex-wrap: wrap;
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    flex-direction: column;
+    flex-wrap: none;
+  }
+`
+
 
 const StyledPendingMovesButtonsWrapper = styled.div`
   //position: fixed;

@@ -18,11 +18,11 @@ export const CubeProvider = (): null => {
 
   const poll = async() => {
     // console.log('poll()')
-    if (wallet.ethereum) {
+    // if (wallet.ethereum) {
       dispatch(pollCubeContract());
-    } else {
-      // console.log('not connected');
-    }
+    // } else {
+    //   console.log('not connected');
+    // }
   }
 
   useEffect(() => {

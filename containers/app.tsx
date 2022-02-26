@@ -8,6 +8,7 @@ import {CubeProvider} from "../contexts/cube-provider";
 import {useTypedSelector} from "../store/reducers";
 import {UnconnectedCube} from "../components/cube/unconnected-cube";
 import {CubeLoading} from "../components/cube/cube-loading";
+import {Logo} from "../components/Logo/Logo";
 
 // const PriorityExample = dynamic(() => import('../components/connectors/PriorityExample'), { ssr: false })
 
@@ -26,19 +27,24 @@ export function App() {
 
       <CubeProvider/>
 
-
-
-      <StyledAccountButtonWrapper>
-        <AccountButton />
-      </StyledAccountButtonWrapper>
-
       {flags.isLoadingInitialCubeContractState ? (
         <CubeLoading/>
-      ) : currentContractState ? (
-        <CubeWrapper/>
       ) : (
-        <UnconnectedCube/>
+        <>
+
+          <StyledAccountButtonWrapper>
+            <AccountButton />
+          </StyledAccountButtonWrapper>
+
+          {currentContractState ? (
+            <CubeWrapper/>
+          ) : (
+            <UnconnectedCube/>
+          )}
+        </>
       )}
+
+      <Logo/>
 
 
     </>

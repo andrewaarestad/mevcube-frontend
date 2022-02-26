@@ -1,3 +1,7 @@
+.firebase*
+out
+firebase.json
+
 *.log
 node_modules
 .env

@@ -95,9 +95,16 @@ export class CubeDomElement {
   }
 }
 
+
+
 const raycaster = new THREE.Raycaster();
-let screenWidth = window.innerWidth;
-let screenHeight = window.innerHeight;
+
+let screenWidth = 100;
+let screenHeight = 100;
+if (typeof window !== 'undefined') {
+  screenWidth = window.innerWidth;
+  screenHeight = window.innerHeight;
+}
 const screenCenterCoords = new THREE.Vector2(screenWidth / 2, screenHeight / 2);
 
 let draggable = true;
@@ -209,7 +216,7 @@ function animate(time?: number) {
   }
   TWEEN.update(time);
   renderer.render(scene, camera);
-};
+}
 animate();
 
 async function rotationTransition(axis: Axis, endRad: number) {

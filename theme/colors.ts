@@ -12,6 +12,7 @@ export const red = {
 }
 
 export const grey = {
+  10: '#F1F3F3',
   100: '#363636', //hover
   200: '#000',
   300: '#e2d6cf', //right border
