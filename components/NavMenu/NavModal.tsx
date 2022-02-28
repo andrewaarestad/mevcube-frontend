@@ -15,7 +15,7 @@ import {pollCubeContract} from "../../thunks/poll-cube-contract";
 import {sendResetCube} from "../../thunks/reset-cube";
 import {useAppDispatch} from "../../store";
 
-const LogoModal: React.FC<ModalProps> = ({ onDismiss }) => {
+const NavModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
 
   return (
@@ -28,4 +28,4 @@ const LogoModal: React.FC<ModalProps> = ({ onDismiss }) => {
 }
 
 
-export default LogoModal
+export default NavModal

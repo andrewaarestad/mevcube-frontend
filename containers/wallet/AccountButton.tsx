@@ -43,8 +43,10 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 
 const StyledAccountButton = styled.div`
   
-  position: fixed;
+  //position: fixed;
   left: 35px;
+
+  //top: 30px;
   //border: 1px;
   //background: #333333;
 `

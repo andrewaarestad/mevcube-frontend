@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const StyledAccountButtonWrapper = styled.div`
 
 
-  position: absolute;
-  left: 1px;
+  position: fixed;
+  left: 30px;
   top: 30px;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 
@@ -13,7 +13,7 @@ export const StyledAccountButtonWrapper = styled.div`
   
   
   align-items: center;
-  display: flex;
+  //display: flex;
   justify-content: flex-end;
   width: 156px;
   @media (max-width: 400px) {

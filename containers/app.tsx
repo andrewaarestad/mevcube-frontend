@@ -6,13 +6,16 @@ import {CubeProvider} from "../contexts/cube-provider";
 import {useTypedSelector} from "../store/reducers";
 import {UnconnectedCube} from "./cube/unconnected-cube";
 import {CubeLoading} from "./cube/cube-loading";
-import {Logo} from "../components/Logo/Logo";
+import {NavMenu} from "../components/NavMenu/NavMenu";
 import Cube from "./cube/cube";
+import {CurrentScreen} from "../store/slices/nav";
+import {About} from "./about/About";
 
 
 export function App() {
 
   const {currentContractState, flags} = useTypedSelector(state => state.cube);
+  const {currentScreen} = useTypedSelector(state => state.nav);
 
   // console.log('App.render: ', currentContractState);
   return (
@@ -29,15 +32,27 @@ export function App() {
             <AccountButton />
           </StyledAccountButtonWrapper>
 
-          {currentContractState ? (
-            <Cube/>
-          ) : (
-            <UnconnectedCube/>
+          {currentScreen === CurrentScreen.Home && (
+            <>
+              {currentContractState ? (
+                <Cube/>
+              ) : (
+                <UnconnectedCube/>
+              )}
+            </>
           )}
+
+          {currentScreen === CurrentScreen.About && (
+            <>
+              <About/>
+            </>
+          )}
+
+
         </>
       )}
 
-      <Logo/>
+      <NavMenu/>
 
 
     </>

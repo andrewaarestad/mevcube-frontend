@@ -1,13 +1,16 @@
 import Button from "../Button";
-import useModal from "../../hooks/useModal";
 import React, {useState} from "react";
-import LogoModal from "./LogoModal";
 import styled from "styled-components";
 import Spacer from "../Spacer";
+import {useTypedSelector} from "../../store/reducers";
+import {CurrentScreen, navSlice} from "../../store/slices/nav";
+import {useAppDispatch} from "../../store";
 
-export const Logo: React.FC = () => {
+export const NavMenu: React.FC = () => {
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const dispatch = useAppDispatch();
+  const {currentScreen} = useTypedSelector(state => state.nav);
 
   // const [onPresentLogoModal] = useModal(<LogoModal />)
 
@@ -16,31 +19,53 @@ export const Logo: React.FC = () => {
   //
   // }
 
+  const didClickHome = () => {
+    setIsExpanded(false)
+    if (currentScreen !== CurrentScreen.Home) {
+      dispatch(navSlice.actions.setCurrentScreen(CurrentScreen.Home));
+    }
+  }
+
+  const didClickAbout = () => {
+    setIsExpanded(false)
+    if (currentScreen !== CurrentScreen.About) {
+      dispatch(navSlice.actions.setCurrentScreen(CurrentScreen.About));
+    }
+  }
+
+  const didClickCollapse = () => {
+    setIsExpanded(false)
+  }
+
+  const didClickExpand = () => {
+    setIsExpanded(true)
+  }
+
   return <StyledNavButtons>
     {
       isExpanded ? (
         <div>
           <StyledNavItem>
-            <Button onClick={() => setIsExpanded(false)}> Home </Button>
+            <Button onClick={() => didClickHome()}> Home </Button>
           </StyledNavItem>
           <StyledNavItem>
             <Spacer size="sm"/>
           </StyledNavItem>
           <StyledNavItem>
-            <Button onClick={() => setIsExpanded(false)}> About </Button>
+            <Button onClick={() => didClickAbout()}> About </Button>
           </StyledNavItem>
           <StyledNavItem>
             <Spacer size="sm"/>
           </StyledNavItem>
           <StyledNavItem>
-            <Button onClick={() => setIsExpanded(false)}> {'>'} </Button>
+            <Button onClick={() => didClickCollapse()}> {'>'} </Button>
           </StyledNavItem>
 
           {/*<p>mevcube</p>*/}
         </div>
       ) : (
         <div>
-          <Button onClick={() => setIsExpanded(true)}>
+          <Button onClick={() => didClickExpand()}>
             <img src={"/hamburger_icon_64.png"} style={{ height: 25 }} alt={"menu"}/>
           </Button>
           {/*<p>mevcube</p>*/}
