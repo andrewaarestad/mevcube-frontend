@@ -40,16 +40,19 @@ export default function PendingMoves() {
       {pendingMoves.length > 0 && (
         <>
 
+
+          <Button onClick={() => onClickReset()}>
+            Reset
+          </Button>
+
+          <Spacer size={"sm"}/>
+          
           {account ? (
 
             <StyledPendingMovesButtonsWrapper>
 
               <Button onClick={() => onClickSubmitSolution()}>
                 Submit Solution
-              </Button>
-              <Spacer size={"sm"}/>
-              <Button onClick={() => onClickReset()}>
-                Reset
               </Button>
             </StyledPendingMovesButtonsWrapper>
           ) : (

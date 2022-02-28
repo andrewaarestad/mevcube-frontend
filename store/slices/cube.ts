@@ -42,18 +42,20 @@ export const cubeSlice = createSlice({
   reducers: {
     addPendingMoves: (state, action: PayloadAction<string[]>) => {
       const currentMoves = [...state.pendingMoves, ...action.payload];
+      // console.log('current moves: ', currentMoves)
       state.pendingMoves = [];
       for (let ii=0; ii<currentMoves.length; ii++) {
         if (ii === currentMoves.length-1) {
           state.pendingMoves.push(currentMoves[ii]);
         } else {
-          if (currentMoves[ii].toLowerCase() === currentMoves[ii+1].toLowerCase()) {
+          if (currentMoves[ii].toLowerCase() === currentMoves[ii+1].toLowerCase() && currentMoves[ii] !== currentMoves[ii+1]) {
             ii++;
             continue;
           }
           state.pendingMoves.push(currentMoves[ii]);
         }
       }
+      // console.log('pending moves: ', state.pendingMoves);
     },
     setCurrentScreenState: (state, action: PayloadAction<string>) => {
       state.currentScreenState = action.payload;
@@ -75,7 +77,7 @@ export const cubeSlice = createSlice({
       }
     });
     addCase(pollCubeContract.pending, (state, action) => {
-      console.log('pollCubeContract.pending');
+      // console.log('pollCubeContract.pending');
       state.flags.isRefreshingCubeState = true;
     });
     addCase(pollCubeContract.fulfilled, (state, action) => {

@@ -228,7 +228,7 @@ async function rotationTransition(axis: Axis, endRad: number) {
 function convertNotationsToContractFormat(notations: Array<string>) {
   // console.log('Converting: ', notations);
   return notations.map(notation => {
-    console.log('converting: ', notation);
+    // console.log('converting: ', notation);
     if (notation.length === 1) {
       return notation;
     } else {

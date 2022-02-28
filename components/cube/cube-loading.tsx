@@ -6,7 +6,7 @@ export const CubeLoading: React.FC = () => {
 
   const {errors} = useTypedSelector(state => state.cube);
 
-  console.log('errors: ', errors.initialLoad);
+  // console.log('errors: ', errors.initialLoad);
 
   return (
     <div >

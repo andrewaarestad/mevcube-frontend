@@ -37,7 +37,7 @@ export default function Cube() {
   }
 
   useEffect(() => {
-    console.log('Cube: contract state changed');
+    // console.log('Cube: contract state changed');
     CubeDomElement.reset(currentContractState);
     CubeDomElement.show();
     dispatch(cubeSlice.actions.resetPendingMoves())
