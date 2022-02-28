@@ -46,7 +46,7 @@ export default function PendingMoves() {
           </Button>
 
           <Spacer size={"sm"}/>
-          
+
           {account ? (
 
             <StyledPendingMovesButtonsWrapper>

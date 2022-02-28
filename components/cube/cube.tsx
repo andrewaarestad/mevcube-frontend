@@ -51,21 +51,7 @@ export default function Cube() {
     CubeDomElement.reset(currentContractState);
   }, [pendingMovesResetCounter])
 
-  const onClickScramble = () => {
-    sendScrambleCube(dispatch, ethereum, account)
-    .then(() => dispatch(pollCubeContract()))
-    .catch(err => {
-      console.error('Error scrambling cube: ', err);
-    })
-  }
 
-  const onClickReset = () => {
-    sendResetCube(dispatch, ethereum, account)
-    .then(() => dispatch(pollCubeContract()))
-    .catch(err => {
-      console.error('Error resetting cube: ', err);
-    })
-  }
 
   // const onClickRandom = () => {
   //   CubeDomElement.random()
@@ -85,17 +71,17 @@ export default function Cube() {
       <PendingMoves />
 
 
-      {account && (
-        <StyledRibbonWrapper>
-          <Button onClick={() => onClickScramble()}>
-            Scramble
-          </Button>
-          <Spacer size={"sm"}/>
-          <Button onClick={() => onClickReset()}>
-            Cheat
-          </Button>
-        </StyledRibbonWrapper>
-      )}
+      {/*{account && (*/}
+      {/*  <StyledRibbonWrapper>*/}
+      {/*    <Button onClick={() => onClickScramble()}>*/}
+      {/*      Scramble*/}
+      {/*    </Button>*/}
+      {/*    <Spacer size={"sm"}/>*/}
+      {/*    <Button onClick={() => onClickReset()}>*/}
+      {/*      Cheat*/}
+      {/*    </Button>*/}
+      {/*  </StyledRibbonWrapper>*/}
+      {/*)}*/}
 
 
 
@@ -121,7 +107,7 @@ export default function Cube() {
 
 const StyledRibbonWrapper = styled.div`
   position: fixed;
-  right: 35px;
+  left: 35px;
   bottom: 30px;
   
   //display: flex;

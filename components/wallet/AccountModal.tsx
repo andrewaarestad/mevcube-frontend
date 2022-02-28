@@ -10,9 +10,14 @@ import Button from "../Button";
 import Value from "../Value";
 import CardIcon from "../CardIcon";
 import Label from "../Label";
+import {sendScrambleCube} from "../../thunks/scramble-cube";
+import {pollCubeContract} from "../../thunks/poll-cube-contract";
+import {sendResetCube} from "../../thunks/reset-cube";
+import {useAppDispatch} from "../../store";
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
-  const { account, reset } = useWallet()
+  const { account, ethereum, reset } = useWallet()
+  const dispatch = useAppDispatch();
 
   const handleSignOutClick = useCallback(() => {
     onDismiss!()
@@ -22,31 +27,42 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   // const sushi = useSushi()
   // const sushiBalance = useTokenBalance(getSushiAddress(sushi))
 
+  const onClickScramble = () => {
+    onDismiss!()
+    sendScrambleCube(dispatch, ethereum, account)
+    .then(() => dispatch(pollCubeContract()))
+    .catch(err => {
+      console.error('Error scrambling cube: ', err);
+    })
+  }
+
+  const onClickReset = () => {
+    onDismiss!()
+    sendResetCube(dispatch, ethereum, account)
+    .then(() => dispatch(pollCubeContract()))
+    .catch(err => {
+      console.error('Error resetting cube: ', err);
+    })
+  }
+
   return (
     <Modal>
-      <ModalTitle text="My Account" />
+      <ModalTitle text="mevcube" />
       <ModalContent>
-        <Spacer />
-
-        <div style={{ display: 'flex' }}>
-          <StyledBalanceWrapper>
-            <CardIcon>
-              <span aria-label="dice" role="img">🎲</span>
-            </CardIcon>
-            <StyledBalance>
-              <Value value={0} />
-              <Label text="RNG Balance" />
-            </StyledBalance>
-          </StyledBalanceWrapper>
-        </div>
-
+        <Label text={"Connected with Account: " + account} />
         <Spacer />
         <Button
-          href={`https://etherscan.io/address/${account}`}
-          text="View on Etherscan"
+          onClick={onClickScramble}
+          text="Scramble Cube"
           variant="secondary"
         />
-        <Spacer />
+        <Spacer size={"sm"} />
+        <Button
+          onClick={onClickReset}
+          text="Cheat (Solve Cube)"
+          variant="secondary"
+        />
+        <Spacer size={"sm"} />
         <Button
           onClick={handleSignOutClick}
           text="Sign out"
