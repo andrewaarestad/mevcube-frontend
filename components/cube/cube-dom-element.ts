@@ -141,7 +141,9 @@ scene.add(directionalLight2);
 // const ambientLight = new THREE.AmbientLight('#FFF');
 // scene.add(ambientLight);
 
-const camera = new THREE.PerspectiveCamera(75, screenWidth / screenHeight, 0.1, 30);
+const camera = new THREE.PerspectiveCamera(20, screenWidth / screenHeight, .1, 660);
+camera.zoom = 0.15;
+camera.updateProjectionMatrix();
 if (screenWidth < 576) {
   camera.position.set(4, 4, 4);
 } else {
@@ -158,9 +160,12 @@ renderer.setPixelRatio( window.devicePixelRatio );
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
 controls.enableDamping = true;
-controls.rotateSpeed = 1.5;
-controls.minDistance = debug ? 1 : 3;
-controls.maxDistance = debug ? 20 : 10;
+controls.rotateSpeed = 2;
+controls.minDistance = 3;
+// controls.minDistance = debug ? 1 : 3;
+controls.maxDistance = 10;
+// controls.maxDistance = debug ? 20 : 10;
+// controls.maxZoom = 1;
 
 let rubikCube = new RubikCubeModel();
 let cubeletModels = rubikCube.model.children;

@@ -33,14 +33,17 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
   return (
     <StyledAccountButton>
       {!account ? (
-        <Button onClick={handleUnlockClick} size="sm" text="Connect" />
+        <Button onClick={handleUnlockClick} text="Connect" />
       ) : (
-        <Button onClick={onPresentAccountModal} size="sm" text={accountAddress} />
+        <Button onClick={onPresentAccountModal}  text={accountAddress} />
       )}
     </StyledAccountButton>
   )
 }
 
-const StyledAccountButton = styled.div``
+const StyledAccountButton = styled.div`
+  //border: 1px;
+  //background: #333333;
+`
 
 export default AccountButton

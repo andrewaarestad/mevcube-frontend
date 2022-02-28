@@ -18,12 +18,12 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
   useEffect(() => {
     if (account) {
-      console.log('calling onDismiss()')
+      // console.log('calling onDismiss()')
       onDismiss()
     }
   }, [account, onDismiss])
 
-  console.log('WalletProviderModal.render');
+  // console.log('WalletProviderModal.render');
 
   return (
     <Modal>
@@ -44,11 +44,9 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
                   <WalletCard
                     icon={<img src={'/metamask-fox.svg'} style={{ height: 55 }}  alt="metamask"/>}
                     onConnect={() => {
-                      console.log('WalletCard.onConnect');
-
                       connect('injected')
                       .then(() => {
-                        console.log('connected');
+                        // console.log('connected');
                       })
                       .catch(err => {
                         console.error('error: ', err);
@@ -60,7 +58,9 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
                 <Spacer size="sm" />
 
                 <StyledWalletCard>
-                  <p>More Wallets Coming Soon</p>
+                  <StyledWalletText>
+                    <p>More Wallets Coming Soon</p>
+                  </StyledWalletText>
                 </StyledWalletCard>
                 {/*<StyledWalletCard>*/}
                 {/*  <WalletCard*/}
@@ -81,6 +81,16 @@ const WalletProviderModal: React.FC<ModalProps> = ({ onDismiss }) => {
     </Modal>
   )
 }
+
+const StyledWalletText = styled.div`
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
+  padding: 3rem;
+  padding-top: 7rem;
+  //font-size: 26px;
+  //background: aquamarine;
+`
 
 const StyledWalletsWrapper = styled.div`
   display: flex;
