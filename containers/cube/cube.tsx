@@ -3,24 +3,15 @@ import * as React from "react";
 import PendingMoves from "./pending-moves";
 import {cubeSlice} from "../../store/slices/cube";
 import {useAppDispatch} from "../../store";
-import {CubeDomElement} from "./cube-dom-element";
+import {CubeDomElement} from "./cube-dom-element/cube-dom-element";
 import {useEffect} from "react";
 import {useTypedSelector} from "../../store/reducers";
-import {sendScrambleCube} from "../../thunks/scramble-cube";
 import {useWallet} from "use-wallet";
-import {sendResetCube} from "../../thunks/reset-cube";
-import {pollCubeContract} from "../../thunks/poll-cube-contract";
-import Button from "../Button";
 import styled from "styled-components";
-import Spacer from "../Spacer";
 
 export default function Cube() {
 
   const dispatch = useAppDispatch();
-  const {ethereum, account, chainId} = useWallet();
-
-  // console.log('ethereum: ', ethereum)
-  // console.log('chainId: ', chainId)
 
   const {currentContractState, pendingMovesResetCounter} = useTypedSelector(state => state.cube);
 
@@ -70,36 +61,6 @@ export default function Cube() {
 
       <PendingMoves />
 
-
-      {/*{account && (*/}
-      {/*  <StyledRibbonWrapper>*/}
-      {/*    <Button onClick={() => onClickScramble()}>*/}
-      {/*      Scramble*/}
-      {/*    </Button>*/}
-      {/*    <Spacer size={"sm"}/>*/}
-      {/*    <Button onClick={() => onClickReset()}>*/}
-      {/*      Cheat*/}
-      {/*    </Button>*/}
-      {/*  </StyledRibbonWrapper>*/}
-      {/*)}*/}
-
-
-
-      {/*<div id="ribbon">*/}
-      {/*  <Button onClick={() => onClickScramble()}>*/}
-      {/*    Scramble*/}
-      {/*  </Button>*/}
-      {/*  <Button onClick={() => onClickReset()}>*/}
-      {/*    Reset*/}
-      {/*  </Button>*/}
-      {/*  /!*<div className="btn" id="scramble" onClick={() => onClickScramble()}>Scramble</div>*!/*/}
-      {/*  /!*<div className="btn" id="random" onClick={() => onClickRandom()}>Random</div>*!/*/}
-      {/*  /!*<div className="btn" id="reset" onClick={() => onClickReset()}>Reset</div>*!/*/}
-      {/*</div>*/}
-
-
-
-      <div id="progressbar"/>
 
     </>
   )

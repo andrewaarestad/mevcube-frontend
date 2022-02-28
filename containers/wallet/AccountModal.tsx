@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import ModalTitle from "../ModalTitle";
-import ModalContent from "../ModalContent";
-import Spacer from "../Spacer";
-import Modal, {ModalProps} from "../Modal";
-import ModalActions from "../ModalActions";
-import Button from "../Button";
-import Value from "../Value";
-import CardIcon from "../CardIcon";
-import Label from "../Label";
+import ModalTitle from "../../components/ModalTitle";
+import ModalContent from "../../components/ModalContent";
+import Spacer from "../../components/Spacer";
+import Modal, {ModalProps} from "../../components/Modal";
+import ModalActions from "../../components/ModalActions";
+import Button from "../../components/Button";
+import Value from "../../components/Value";
+import CardIcon from "../../components/CardIcon";
+import Label from "../../components/Label";
 import {sendScrambleCube} from "../../thunks/scramble-cube";
 import {pollCubeContract} from "../../thunks/poll-cube-contract";
 import {sendResetCube} from "../../thunks/reset-cube";

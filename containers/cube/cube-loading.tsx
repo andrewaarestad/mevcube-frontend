@@ -1,6 +1,7 @@
 // @ts-ignore
 import styles from './CubeLoading.module.scss'
 import {useTypedSelector} from "../../store/reducers";
+import styled from "styled-components";
 
 export const CubeLoading: React.FC = () => {
 
@@ -12,18 +13,34 @@ export const CubeLoading: React.FC = () => {
     <div >
       {errors.initialLoad ? (
         <div>
-          <div className={styles.errorDetails}>
+          <StyledErrorDetails>
             <p>Looks like we are having technical difficulties.  Please try again later.
-            <br/><br/>
+              <br/><br/>
               {errors.initialLoad.error.message}
             </p>
-          </div>
+          </StyledErrorDetails>
         </div>
       ) : (
-        <div className={styles.loading}>
+        <StyledCubeLoading>
           <p>Loading...</p>
-        </div>
+        </StyledCubeLoading>
       )}
     </div>
   )
 }
+
+const StyledCubeLoading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  font-size: 26px;  
+`
+
+const StyledErrorDetails = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  font-size: 12px;
+`

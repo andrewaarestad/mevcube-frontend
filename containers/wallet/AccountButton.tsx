@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useWallet } from 'use-wallet'
-import WalletProviderModal from '../WalletProviderModal'
+import WalletProviderModal from '../../components/WalletProviderModal'
 import AccountModal from './AccountModal'
 import useModal from "../../hooks/useModal";
-import Button from "../Button";
+import Button from "../../components/Button";
 
 
 
@@ -42,6 +42,9 @@ const AccountButton: React.FC<AccountButtonProps> = (props) => {
 }
 
 const StyledAccountButton = styled.div`
+  
+  position: fixed;
+  left: 35px;
   //border: 1px;
   //background: #333333;
 `

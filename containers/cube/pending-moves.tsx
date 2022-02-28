@@ -1,9 +1,9 @@
 import * as React from "react";
-import {RubikCube} from "./models/rubik-cube";
+import {RubikCube} from "./cube-dom-element/models/rubik-cube";
 import {useTypedSelector} from "../../store/reducers";
-import Button from "../Button";
+import Button from "../../components/Button";
 import styled from "styled-components";
-import Spacer from "../Spacer";
+import Spacer from "../../components/Spacer";
 import {useAppDispatch} from "../../store";
 import {cubeSlice} from "../../store/slices/cube";
 import {sendSubmitSolution} from "../../thunks/submit-solution";
