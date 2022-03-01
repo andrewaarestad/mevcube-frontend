@@ -4,16 +4,17 @@ import PendingMoves from "./pending-moves";
 import {cubeSlice} from "../../store/slices/cube";
 import {useAppDispatch} from "../../store";
 import {CubeDomElement} from "./cube-dom-element/cube-dom-element";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useTypedSelector} from "../../store/reducers";
-import {useWallet} from "use-wallet";
 import styled from "styled-components";
 
 export default function Cube() {
 
   const dispatch = useAppDispatch();
 
-  const {currentContractState, pendingMovesResetCounter} = useTypedSelector(state => state.cube);
+  const {currentContractState, pendingMovesResetCounter, currentScreenState} = useTypedSelector(state => state.cube);
+
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   CubeDomElement.delegate = {
     // triggered by user interacting with the cube
@@ -28,18 +29,26 @@ export default function Cube() {
   }
 
   useEffect(() => {
-    // console.log('Cube: contract state changed');
-    CubeDomElement.reset(currentContractState);
+    if (isFirstRender) {
+      console.log('cube: first render');
+      setIsFirstRender(false);
+      CubeDomElement.reset(currentScreenState);
+    } else {
+      console.log('Cube: contract state changed');
+      CubeDomElement.reset(currentContractState);
+    }
     CubeDomElement.show();
-    dispatch(cubeSlice.actions.resetPendingMoves())
+    // dispatch(cubeSlice.actions.resetPendingMoves())
     return () => {
       CubeDomElement.hide();
     }
   }, [currentContractState])
 
   useEffect(() => {
-
-    CubeDomElement.reset(currentContractState);
+    if (!isFirstRender) {
+      console.log('pendingMovesResetCounter: triggered reset: ', pendingMovesResetCounter);
+      CubeDomElement.reset(currentContractState);
+    }
   }, [pendingMovesResetCounter])
 
 

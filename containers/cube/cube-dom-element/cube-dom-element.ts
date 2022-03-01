@@ -43,6 +43,7 @@ export class CubeDomElement {
   }
 
   public static reset(state?: string) {
+    console.log('setting cube to: ', state);
     scene.remove(rubikCube.model);
     rubikCube.dispose();
     rubikCube = new RubikCubeModel(state);
