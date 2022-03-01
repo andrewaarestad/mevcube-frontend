@@ -2,7 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export enum CurrentScreen {
   Home,
-  About
+  About,
+  Leaderboard
 }
 
 interface NavState {
@@ -20,7 +21,6 @@ export const navSlice = createSlice({
   reducers: {
     setCurrentScreen: (state, action: PayloadAction<CurrentScreen>) => {
       state.currentScreen = action.payload;
-      console.log('set current screen: ', state.currentScreen);
     }
   }
 });

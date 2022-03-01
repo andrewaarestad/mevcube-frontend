@@ -10,6 +10,7 @@ import {NavMenu} from "../components/NavMenu/NavMenu";
 import Cube from "./cube/cube";
 import {CurrentScreen} from "../store/slices/nav";
 import {About} from "./about/About";
+import {Leaderboard} from "./leaderboard/Leaderboard";
 
 
 export function App() {
@@ -45,6 +46,12 @@ export function App() {
           {currentScreen === CurrentScreen.About && (
             <>
               <About/>
+            </>
+          )}
+
+          {currentScreen === CurrentScreen.Leaderboard && (
+            <>
+              <Leaderboard/>
             </>
           )}
 

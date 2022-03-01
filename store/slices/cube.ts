@@ -61,7 +61,7 @@ export const cubeSlice = createSlice({
       state.currentScreenState = action.payload;
     },
     resetPendingMoves: (state) => {
-      console.log('resetPendingMoves reducer');
+      // console.log('resetPendingMoves reducer');
       state.pendingMoves = [];
       state.pendingMovesResetCounter++;
       state.currentScreenState = state.currentContractState;

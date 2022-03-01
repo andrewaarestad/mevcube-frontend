@@ -33,6 +33,13 @@ export const NavMenu: React.FC = () => {
     }
   }
 
+  const didClickLeaderboard = () => {
+    setIsExpanded(false)
+    if (currentScreen !== CurrentScreen.Leaderboard) {
+      dispatch(navSlice.actions.setCurrentScreen(CurrentScreen.Leaderboard));
+    }
+  }
+
   const didClickCollapse = () => {
     setIsExpanded(false)
   }
@@ -53,6 +60,12 @@ export const NavMenu: React.FC = () => {
           </StyledNavItem>
           <StyledNavItem>
             <Button onClick={() => didClickAbout()}> About </Button>
+          </StyledNavItem>
+          <StyledNavItem>
+            <Spacer size="sm"/>
+          </StyledNavItem>
+          <StyledNavItem>
+            <Button onClick={() => didClickLeaderboard()}> Leaderboard </Button>
           </StyledNavItem>
           <StyledNavItem>
             <Spacer size="sm"/>
