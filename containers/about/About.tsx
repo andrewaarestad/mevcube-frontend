@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import {useTypedSelector} from "../../store/reducers";
+import React from "react";
+// @ts-ignore
+import Tooltip from "react-simple-tooltip"
+import Spacer from "../../components/Spacer";
 
 
 export const About = () => {
@@ -27,10 +31,64 @@ export const About = () => {
         <p>As an incentive to keep the game moving, players must submit a fee when solving the puzzle.
           This fee is used to create a bounty that searchers can claim to scramble the puzzle for the next player.</p>
 
+        <Spacer/>
+
+        <StyledLinkIcons>
+
+          <Tooltip content="https://github.com/andrewaarestad/mevcube-frontend">
+            <Link href={"https://github.com/andrewaarestad/mevcube-frontend"} target="_blank" rel="noopener noreferrer">
+              <Icon>
+                <img src={'/Github-Mark-64px.png'} style={{ height: 32 }}  alt="github"/>
+              </Icon>
+            </Link>
+          </Tooltip>
+
+          <Spacer/>
+
+          <Tooltip content="https://twitter.com/mevcube">
+            <Link href={"https://twitter.com/mevcube"} target="_blank" rel="noopener noreferrer">
+              <Icon>
+                <img src={'/twitter.png'} style={{ height: 32 }}  alt="twitter"/>
+              </Icon>
+            </Link>
+          </Tooltip>
+        </StyledLinkIcons>
+
       </StyledText>
     </StyledAbout>
   )
 }
+
+const StyledLinkIcons = styled.div`
+  display:flex;
+  //align-items: center;
+  //background: green;
+  justify-content: center;
+  //position: fixed;
+  //right: 35px;
+  //top: 30px;
+`
+
+const Link = styled.a`
+  //display: flex;
+  //align-items: center;
+  //padding: 5px 10px;
+  //background: papayawhip;
+  //color: palevioletred;
+  display: inline-block;
+`;
+
+const Icon = styled.div`
+  //flex: none;
+  //transition: fill 0.25s;
+  //width: 48px;
+  //height: 48px;
+
+  ${Link}:hover & {
+    opacity: 0.5;
+    //fill: rebeccapurple;
+  }
+`;
 
 const StyledAbout = styled.div`
   display: flex;
