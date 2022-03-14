@@ -1,22 +1,25 @@
 import styled from "styled-components";
+import {useTypedSelector} from "../../store/reducers";
 
 
 export const About = () => {
 
   // console.log('About.render');
 
+  const {contractVersion} = useTypedSelector(state => state.cube);
+
   return (
     <StyledAbout>
       <StyledText>
         <StyledAbout>
-          <h1>mevcube</h1>
+          <h1>mevcube {contractVersion}</h1>
         </StyledAbout>
         <br/>
         <p>The object is simple: solve the cube if it needs solving.
           Or, scramble it if it's already solved!</p>
 
-        <p>mevcube 1.0 is a single puzzle cube which can be solved by anyone.
-          The current state of the puzzle is stored on-chain and visualized on this site.
+        <p>mevcube is a single instance of a puzzle cube which can be solved by anyone.
+          The state of the puzzle is stored on-chain and visualized on this site.
           Players may perform moves on the cube contract to solve it.
           A successful solution will get you on the leaderboard.
           Use this website to explore the cube and prepare your solution, but if you really want to compete you may want to build a bot. </p>

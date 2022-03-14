@@ -14,10 +14,12 @@ import {sendScrambleCube} from "../../thunks/scramble-cube";
 import {pollCubeContract} from "../../thunks/poll-cube-contract";
 import {sendResetCube} from "../../thunks/reset-cube";
 import {useAppDispatch} from "../../store";
+import {useTypedSelector} from "../../store/reducers";
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, ethereum, reset } = useWallet()
   const dispatch = useAppDispatch();
+  const {contractVersion} = useTypedSelector(state => state.cube);
 
   const handleSignOutClick = useCallback(() => {
     onDismiss!()
@@ -47,7 +49,7 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
 
   return (
     <Modal>
-      <ModalTitle text="mevcube" />
+      <ModalTitle text={"mevcube " + contractVersion} />
       <ModalContent>
         <Label text={"Connected with Account: " + account} />
         <Spacer />

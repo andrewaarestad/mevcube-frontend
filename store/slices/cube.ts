@@ -18,6 +18,7 @@ interface CubeState {
   pendingMoves: Array<string>
   pendingMovesResetCounter: number
   currentScreenState: string
+  contractVersion: string
   currentContractState: string | undefined
   flags: ICubeStateFlags,
   errors: ICubeStateErrors
@@ -29,6 +30,7 @@ const initialState: CubeState = {
   pendingMovesResetCounter: 0,
   currentScreenState: defaultCubeState,
   currentContractState: undefined,
+  contractVersion: '0.0.0',
   flags: {
     isLoadingInitialCubeContractState: true,
     isRefreshingCubeState: false
@@ -82,7 +84,8 @@ export const cubeSlice = createSlice({
       state.flags.isRefreshingCubeState = true;
     });
     addCase(pollCubeContract.fulfilled, (state, action) => {
-      state.currentContractState = action.payload;
+      state.currentContractState = action.payload.state;
+      state.contractVersion = action.payload.version;
       state.flags.isLoadingInitialCubeContractState = false;
       state.flags.isRefreshingCubeState = false;
       state.errors.initialLoad = undefined;

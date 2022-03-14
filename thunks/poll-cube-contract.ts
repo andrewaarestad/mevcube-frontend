@@ -2,15 +2,24 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {ethers} from "ethers";
 import {MevCube} from "../contracts/mev-cube";
 
+interface ICubeContractPollResult {
+    state: string,
+    version: string
+}
+
 export const pollCubeContract = createAsyncThunk(
   'cube/pollCubeContract',
   async (_: void, {dispatch, getState}) => {
     const provider = new ethers.providers.JsonRpcProvider();
     const contract = new ethers.Contract(MevCube.ADDRESS, MevCube.ABI as any, provider.getSigner());
-    // console.log('Calling contract.getState()');
-    const result: string = await contract.getState();
+    // console.log('Calling contract.getState()', MevCube.ABI);
+      const cubeState: string = await contract.getState();
+      const cubeVersion: string = await contract.getVersion();
     // console.log('contract state: ', result);
-    return convertToString(result);
+    return {
+        state: convertToString(cubeState),
+        version: convertToString(cubeVersion)
+    } as ICubeContractPollResult;
   }
 );
 
