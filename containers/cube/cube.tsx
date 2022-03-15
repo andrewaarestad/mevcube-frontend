@@ -32,7 +32,7 @@ export default function Cube() {
     if (isFirstRender) {
       console.log('cube: first render');
       setIsFirstRender(false);
-      CubeDomElement.reset(currentScreenState);
+      CubeDomElement.reset(currentContractState);
     } else {
       console.log('Cube: contract state changed');
       CubeDomElement.reset(currentContractState);

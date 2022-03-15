@@ -14,14 +14,16 @@ export default function Home() {
       <React.StrictMode>
         <ThemeProvider theme={theme}>
           <UseWalletProvider
-            autoConnect={true}
+            autoConnect={false}
             pollBalanceInterval={10000}
             pollBlockNumberInterval={10000}
             connectors={{
-              injected: {
-                //allows you to connect and switch between mainnet and rinkeby within Metamask.
-                chainId: [1, 4, 1337],
-              },
+              // injected: {
+              //   //allows you to connect and switch between mainnet and rinkeby within Metamask.
+              //   // chainId: [1, 4, 1337],
+              //   chainId: [80001]
+              //   // chainId: [80001]
+              // },
               // walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
             }}>
             <Provider store={store}>
