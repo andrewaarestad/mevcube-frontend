@@ -89,7 +89,6 @@ export const cubeSlice = createSlice({
       state.flags.isLoadingInitialCubeContractState = false;
       state.flags.isRefreshingCubeState = false;
       state.errors.initialLoad = undefined;
-      console.log('state.currentContractState: ', state.currentContractState);
     })
   }
 });
