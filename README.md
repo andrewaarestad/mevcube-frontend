@@ -15,4 +15,4 @@ Players may perform moves on the cube contract to solve it.
 
 ## Thanks
 
-Special thanks to @Aaron-Bird whose awesome cube visualization is used by the site: https://github.com/Aaron-Bird/rubiks-cube
+Special thanks to [Aaron Bird](https://github.com/Aaron-Bird) whose awesome cube visualization is used by the site: https://github.com/Aaron-Bird/rubiks-cube
