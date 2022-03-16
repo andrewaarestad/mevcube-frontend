@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "license": "MIT",
   "name": "example",
   "scripts": {
     "start": "next dev",
