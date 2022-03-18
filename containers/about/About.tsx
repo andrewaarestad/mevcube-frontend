@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {useTypedSelector} from "../../store/reducers";
+// @ts-ignore
 import React from "react";
 // @ts-ignore
 import Tooltip from "react-simple-tooltip"
@@ -38,7 +39,7 @@ export const About = () => {
           <Tooltip content="https://github.com/andrewaarestad/mevcube-frontend">
             <Link href={"https://github.com/andrewaarestad/mevcube-frontend"} target="_blank" rel="noopener noreferrer">
               <Icon>
-                <img src={'/Github-Mark-64px.png'} style={{ height: 32 }}  alt="github"/>
+                <img src={'/github.png'} style={{ height: 32 }}  alt="github"/>
               </Icon>
             </Link>
           </Tooltip>
@@ -49,6 +50,16 @@ export const About = () => {
             <Link href={"https://twitter.com/mevcube"} target="_blank" rel="noopener noreferrer">
               <Icon>
                 <img src={'/twitter.png'} style={{ height: 32 }}  alt="twitter"/>
+              </Icon>
+            </Link>
+          </Tooltip>
+
+          <Spacer/>
+
+          <Tooltip content="https://mumbai.polygonscan.com/address/0x6b2Ab1e64c96Bf052F448FCfABB08cB182738bf2">
+            <Link href={"https://mumbai.polygonscan.com/address/0x6b2Ab1e64c96Bf052F448FCfABB08cB182738bf2"} target="_blank" rel="noopener noreferrer">
+              <Icon>
+                <img src={'/polygon.png'} style={{ height: 32 }}  alt="polygonscan"/>
               </Icon>
             </Link>
           </Tooltip>
