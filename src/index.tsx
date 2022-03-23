@@ -12,6 +12,14 @@ import {App} from "./containers/app";
 // TODO: Get rid of this css file...
 import './index.scss';
 
+// replace console.* for disable log on production
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {}
+  console.error = () => {}
+  console.warn = () => {}
+  console.debug = () => {}
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>

@@ -93,7 +93,7 @@ export class CubeDomElement {
     // progress.done();
     mouseTarget = null;
     layerRotationAxis = null;
-    mouseMoveAxis = null;
+    mouseMoveAxis = null as any;
     draggable = true;
   }
 }
@@ -112,7 +112,7 @@ const screenCenterCoords = new THREE.Vector2(screenWidth / 2, screenHeight / 2);
 
 let draggable = true;
 let mouseTarget: THREE.Intersection | null;
-let mouseMoveAxis: 'x' | 'y' | null = null;
+let mouseMoveAxis: 'x' | 'y' = 'x';
 let initMoveToward: number | null = null;
 const mouseTargetFaceDirection = new THREE.Vector3(); // Vector3
 const mouseCoords = new THREE.Vector2();
@@ -312,7 +312,7 @@ async function handleMouseUp() {
 
 
   layerRotationAxis = null;
-  mouseMoveAxis = null;
+  mouseMoveAxis = null as any;
 }
 
 function handleMouseDown() {
@@ -358,7 +358,7 @@ function handleMouseMove() {
     document.body.classList.remove('cursor-pointer');
   }
 
-  if (!mouseTarget || !draggable || !mouseMoveAxis) {
+  if (!mouseTarget || !draggable) {
     return;
   }
 
@@ -401,7 +401,7 @@ function handleMouseMove() {
       }
     } else if (mouseTargetFaceDirection.y < -0.9) { // Down face
       const rad = horizontalRotationAngle(camera.position);
-      direction.rotateAround(new THREE.Vector2(0, 0), rad * 1);
+      direction.rotateAround(new THREE.Vector2(0, 0), rad);
       mouseMoveAxis = Math.abs(direction.x) > Math.abs(direction.y) ? 'x' : 'y';
 
       if (mouseMoveAxis === 'y') {
@@ -447,7 +447,7 @@ function handleMouseMove() {
 
     // console.log('lockRotationDirection: ', layerRotationAxis, layerRotationAxisToward, mouseTargetFaceDirection, value, mouseTarget.object)
   } else {
-    let mouseMoveDistance = mouseCoords[mouseMoveAxis] - mousedownCoords[mouseMoveAxis];
+    let mouseMoveDistance = mouseCoords[mouseMoveAxis!] - mousedownCoords[mouseMoveAxis!];
     // Get the moving distance by the camera rotation angle relative to origin when clicking on the top face and down face
     if (mouseTargetFaceDirection && Math.abs(mouseTargetFaceDirection.y) > 0.9) {
       const yAxisDirection = Math.sign(mouseTargetFaceDirection.y) * -1;
