@@ -1,46 +1,18 @@
-# Getting Started with Create React App
+# mevcube frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend React app for https://mevcube.xyz
 
-## Available Scripts
+Contracts: https://github.com/andrewaarestad/mevcube-contracts
 
-In the project directory, you can run:
+## About
 
-### `yarn start`
+The object is simple: solve the cube if it needs solving.
+Or, scramble it if it's already solved!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+mevcube is a single puzzle cube which can be solved by anyone.
+The current state of the puzzle is stored on-chain and visualized on the site.
+Players may perform moves on the cube contract to solve it.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Thanks
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Special thanks to [Aaron Bird](https://github.com/Aaron-Bird) whose awesome cube visualization is used by the site: https://github.com/Aaron-Bird/rubiks-cube
