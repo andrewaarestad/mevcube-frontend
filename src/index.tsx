@@ -1,12 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import theme from "./theme";
+import {ThemeProvider} from "styled-components";
+import {UseWalletProvider} from "use-wallet";
+import {Provider} from "react-redux";
+import store from "./store";
+import ModalsProvider from './contexts/Modals'
+import {App} from "./containers/app";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <UseWalletProvider
+        autoConnect={false}
+        pollBalanceInterval={10000}
+        pollBlockNumberInterval={10000}
+        connectors={{
+          // injected: {
+          //   //allows you to connect and switch between mainnet and rinkeby within Metamask.
+          //   // chainId: [1, 4, 1337],
+          //   chainId: [80001]
+          //   // chainId: [80001]
+          // },
+          // walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+        }}>
+        <Provider store={store}>
+
+          <ModalsProvider>
+            <App/>
+          </ModalsProvider>
+
+        </Provider>
+      </UseWalletProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
