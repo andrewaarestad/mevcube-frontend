@@ -8,22 +8,7 @@ import { UseWalletProvider } from 'use-wallet'
 import { ThemeProvider } from 'styled-components'
 import theme from "../theme";
 
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
-//
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCggyQhFbn4HmsbpTAsZ3Jk1mZxGctk7Ak",
-//   authDomain: "mevcube.firebaseapp.com",
-//   projectId: "mevcube",
-//   storageBucket: "mevcube.appspot.com",
-//   messagingSenderId: "280823653252",
-//   appId: "1:280823653252:web:94f3508fb673a4c22273d1",
-//   measurementId: "G-36PDW439PB"
-// };
-//
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+
 
 export default function Home() {
   return (

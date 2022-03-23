@@ -5,6 +5,8 @@ import '../assets/css/index.scss';
 //   return <Component {...pageProps} />
 // }
 
+
+
 function SafeHydrate({ children }) {
   return (
     <div suppressHydrationWarning>
