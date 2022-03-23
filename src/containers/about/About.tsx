@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import {useTypedSelector} from "../../store/reducers";
 import React from "react";
+//@ts-ignore
+import Tooltip from "react-simple-tooltip"
 import Spacer from "../../components/Spacer";
-const Tooltip = require("react-simple-tooltip");
 
 
 export const About = () => {

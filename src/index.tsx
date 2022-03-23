@@ -9,6 +9,9 @@ import store from "./store";
 import ModalsProvider from './contexts/Modals'
 import {App} from "./containers/app";
 
+// TODO: Get rid of this css file...
+import './index.scss';
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
