@@ -1,9 +1,34 @@
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import {useWallet} from "use-wallet";
+import {MevCube} from "../../contracts/mev-cube";
 
 
 export const Leaderboard = () => {
 
   // console.log('About.render');
+
+  const {ethereum} = useWallet();
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+
+    const refreshPastEvents = async() => {
+
+      const web3Contract = MevCube.getContract(ethereum)
+      return web3Contract.getPastEvents('Solved');
+    }
+
+    refreshPastEvents()
+    .then(pastEvents => {
+      console.log('pastEvents: ', pastEvents);
+      setIsLoading(false);
+
+    })
+
+
+  }, [ethereum])
 
   return (
     <StyledAbout>
@@ -13,8 +38,26 @@ export const Leaderboard = () => {
         </StyledAbout>
         <br/>
 
+
         <StyledAbout>
-          <p>Coming Soon</p>
+          {!!ethereum ? (
+            <>
+              {isLoading ? (
+                <>
+                  <p>Loading...</p>
+                </>
+              ) : (
+                <>
+                  <h2>Recent Solutions</h2>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <p>Connect wallet to view recent solutions</p>
+            </>
+          )}
+
         </StyledAbout>
 
 
