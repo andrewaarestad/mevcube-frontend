@@ -2,6 +2,9 @@ import styled from "styled-components";
 import {useEffect, useState} from "react";
 import {useWallet} from "use-wallet";
 import {MevCube} from "../../contracts/mev-cube";
+import {useAppDispatch} from "../../store";
+import {historySlice} from "../../store/slices/history";
+import {useTypedSelector} from "../../store/reducers";
 
 
 export const Leaderboard = () => {
@@ -9,8 +12,11 @@ export const Leaderboard = () => {
   // console.log('About.render');
 
   const {ethereum} = useWallet();
+  const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const {recentMoves} = useTypedSelector(state => state.history);
 
   useEffect(() => {
 
@@ -25,16 +31,17 @@ export const Leaderboard = () => {
       console.log('pastEvents: ', pastEvents);
       setIsLoading(false);
 
+      dispatch(historySlice.actions.setRecentMoves(pastEvents));
     })
 
 
-  }, [ethereum])
+  }, [dispatch, ethereum])
 
   return (
     <StyledAbout>
       <StyledText>
         <StyledAbout>
-          <h1>Leaderboard</h1>
+          <h1>Recent Activity</h1>
         </StyledAbout>
         <br/>
 
@@ -48,7 +55,12 @@ export const Leaderboard = () => {
                 </>
               ) : (
                 <>
-                  <h2>Recent Solutions</h2>
+                  <h2>Recent Activity</h2>
+                  {recentMoves.map(move => (
+                    <div key={move.transactionHash}>
+                      <p>Move: {move.returnValues._solution}</p>
+                    </div>
+                  ))}
                 </>
               )}
             </>
