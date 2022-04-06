@@ -21,7 +21,10 @@ export const Leaderboard = () => {
   useEffect(() => {
 
     const refreshPastEvents = async() => {
-
+      if (!ethereum) {
+        console.log('warning, cant get past events without wallet provider');
+        return [];
+      }
       const web3Contract = MevCube.getContract(ethereum)
       return web3Contract.getPastEvents('Solved');
     }
@@ -31,7 +34,15 @@ export const Leaderboard = () => {
       console.log('pastEvents: ', pastEvents);
       setIsLoading(false);
 
-      dispatch(historySlice.actions.setRecentMoves(pastEvents));
+      dispatch(historySlice.actions.setRecentMoves(pastEvents.map(event => ({
+        blockHash: event.blockHash,
+        blockNumber: event.blockNumber,
+        transactionHash: event.transactionHash,
+        solution: {
+          _solver: event.returnValues._solver,
+          _solution: event.returnValues._solution
+        }
+      }))));
     })
 
 
@@ -55,12 +66,26 @@ export const Leaderboard = () => {
                 </>
               ) : (
                 <>
-                  <h2>Recent Activity</h2>
-                  {recentMoves.map(move => (
-                    <div key={move.transactionHash}>
-                      <p>Move: {move.returnValues._solution}</p>
-                    </div>
-                  ))}
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Block</th>
+                        <th>Solution</th>
+                        <th>Solver</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {recentMoves.map(move => (
+                        <tr key={move.transactionHash}>
+                          <td>{move.blockNumber}</td>
+                          <td>{move.solution._solution}</td>
+                          <td>{move.solution._solver}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+
+                  </table>
                 </>
               )}
             </>
