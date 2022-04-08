@@ -2,10 +2,12 @@
 import MevCubeAbi from './abis/MevCube.json'
 import Web3 from "web3";
 import {Addresses} from "../config/addresses";
+import {ethers} from "ethers";
 
 export class MevCube {
   public static ADDRESS = Addresses.MevCube
   public static ABI = MevCubeAbi.abi
+  public static SOLVER_FEE = ethers.utils.parseEther("0.01")
 
   public static getContract(ethereum: any) {
     const web3 = new Web3(ethereum);

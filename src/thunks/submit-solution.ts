@@ -7,7 +7,7 @@ export const sendSubmitSolution = async (pendingMoves: Array<string>, dispatch: 
     console.log('no account, cant submit solution');
     return;
   }
-  console.log('sendSubmitSolution', ethereum);
+  console.log('sendSubmitSolution', ethereum, account);
 
 
   const contract = MevCube.getContract(ethereum);
@@ -15,6 +15,7 @@ export const sendSubmitSolution = async (pendingMoves: Array<string>, dispatch: 
 
   // console.log('calling contract.scramble()');
   // console.log('functions: ', contract, contract.methods)
-  const txHash = await contract.methods.move(pendingMoves.join('')).send({from: account});
+  const txHash = await contract.methods.move(pendingMoves.join('')).send({from: account, value: MevCube.SOLVER_FEE});
+  // const txHash = await contract.methods.move(pendingMoves.join('')).send({from: account});
   console.log('move txHash: ', txHash);
 }

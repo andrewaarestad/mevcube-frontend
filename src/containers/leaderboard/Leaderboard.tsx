@@ -3,8 +3,8 @@ import {useEffect, useState} from "react";
 import {useWallet} from "use-wallet";
 import {MevCube} from "../../contracts/mev-cube";
 import {useAppDispatch} from "../../store";
-import {historySlice} from "../../store/slices/history";
 import {useTypedSelector} from "../../store/reducers";
+import {historySlice} from "../../store/slices/history";
 
 
 export const Leaderboard = () => {
