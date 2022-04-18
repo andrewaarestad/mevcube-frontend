@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AccountButton from "./wallet/AccountButton";
 
 import {StyledAccountButtonWrapper} from './wallet/styled-account-button';
@@ -11,6 +11,8 @@ import Cube from "./cube/cube";
 import {CurrentScreen} from "../store/slices/nav";
 import {About} from "./about/About";
 import {Leaderboard} from "./leaderboard/Leaderboard";
+import {useWallet} from "use-wallet";
+import Environment from "../config/environment";
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -36,11 +38,44 @@ export function App() {
   const {currentContractState, flags} = useTypedSelector(state => state.cube);
   const {currentScreen} = useTypedSelector(state => state.nav);
 
+  const {ethereum, chainId} = useWallet();
+
+  const [chainIdMatches, setChainIdMatches] = useState(true);
+  const [walletConnected, setWalletConnected] = useState(false);
+
+
+  useEffect(() => {
+    if (ethereum) {
+      if (!walletConnected) {
+        setWalletConnected(true);
+      }
+      console.log('chainId: ', chainId);
+      if (chainId === Environment.ChainId) {
+        console.log('chain ID matches');
+        setChainIdMatches(true);
+      } else {
+        setChainIdMatches(false);
+      }
+    } else {
+      if (walletConnected) {
+        setWalletConnected(false);
+      }
+      console.log('chainId: not connected');
+    }
+  }, [chainId, ethereum])
+
+
   // console.log('App.render: ', currentContractState);
   return (
     <>
 
       <CubeProvider/>
+
+      {!chainIdMatches && (
+        <>
+          <p>Chain ID Mismatch</p>
+        </>
+      )}
 
       {flags.isLoadingInitialCubeContractState ? (
         <CubeLoading/>

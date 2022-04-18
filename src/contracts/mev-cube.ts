@@ -1,11 +1,11 @@
 
 import MevCubeAbi from './abis/MevCube.json'
 import Web3 from "web3";
-import {Addresses} from "../config/addresses";
+import Environment from "../config/environment";
 import {ethers} from "ethers";
 
 export class MevCube {
-  public static ADDRESS = Addresses.MevCube
+  public static ADDRESS = Environment.MevCube
   public static ABI = MevCubeAbi.abi
   public static SOLVER_FEE = ethers.utils.parseEther("0.01")
 
