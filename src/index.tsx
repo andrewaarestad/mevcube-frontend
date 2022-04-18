@@ -7,7 +7,7 @@ import {UseWalletProvider} from "use-wallet";
 import {Provider} from "react-redux";
 import store from "./store";
 import ModalsProvider from './contexts/Modals'
-import {App} from "./containers/app";
+import {App} from "./containers/app/app";
 
 // TODO: Get rid of this css file...
 import './index.scss';

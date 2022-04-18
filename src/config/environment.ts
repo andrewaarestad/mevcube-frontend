@@ -3,12 +3,13 @@ interface IEnvironment {
   RPC: string,
   MevCube: string,
   ChainId: number,
-  ChainName: string
+  ChainName: string,
+  ChainIdHex: () => string
 }
 
 const hhEnvironment = {
   RPC: 'http://localhost:8545',
-  MevCube: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+  MevCube: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
   ChainId: 1337,
   ChainName: 'Local Hardhat Network'
 };
@@ -30,7 +31,7 @@ const getProductionEnvironment = () => {
   return mumbaiEnvironment;
 }
 
-const getEnvironment = (): IEnvironment => {
+const getEnvironment = () => {
   if (process.env.REACT_APP_ENVIRONMENT === 'production') {
     return getProductionEnvironment();
   } else {
@@ -38,5 +39,15 @@ const getEnvironment = (): IEnvironment => {
   }
 }
 
-export default getEnvironment();
+const assembleEnvironment = (): IEnvironment => {
+  const env = getEnvironment();
+  return {
+    ...env,
+    ChainIdHex: () => {
+      return '0x' + env.ChainId.toString(16)
+    }
+  }
+}
+
+export default assembleEnvironment();
 

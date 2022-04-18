@@ -29,7 +29,7 @@ export default function Cube() {
 
   useEffect(() => {
     if (isFirstRender) {
-      console.log('cube: first render');
+      // console.log('cube: first render');
       setIsFirstRender(false);
       CubeDomElement.reset(currentContractState);
     } else {

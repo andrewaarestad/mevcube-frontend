@@ -38,14 +38,14 @@ export class CubeDomElement {
   }
 
   public static hide() {
-    console.log('CubeDomElement.hide()');
+    // console.log('CubeDomElement.hide()');
     if (this.domElement) {
       this.domElement.remove();
     }
   }
 
   public static reset(state?: string) {
-    console.log('setting cube to: ', state);
+    // console.log('setting cube to: ', state);
     scene.remove(rubikCube.model);
     rubikCube.dispose();
     rubikCube = new RubikCubeModel(state);
