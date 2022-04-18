@@ -8,6 +8,7 @@ import {cubeSlice} from "../../store/slices/cube";
 import {sendSubmitSolution} from "../../thunks/submit-solution";
 import {useWallet} from "use-wallet";
 import {pollCubeContract} from "../../thunks/poll-cube-contract";
+import {transactionsSlice} from "../../store/slices/transactions";
 
 
 export default function PendingMoves() {
@@ -19,8 +20,10 @@ export default function PendingMoves() {
   // console.log('PendingMoves.render: ', pendingMoves);
 
   const onClickSubmitSolution = () => {
+    dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation(true))
     sendSubmitSolution(pendingMoves, dispatch, ethereum, account)
     .then(() => {
+      dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation(false))
       dispatch(pollCubeContract())
     })
     .catch(err => {
@@ -51,7 +54,7 @@ export default function PendingMoves() {
             <StyledPendingMovesButtonsWrapper>
 
               <Button onClick={() => onClickSubmitSolution()}>
-                Submit Solution
+                Submit Moves
               </Button>
             </StyledPendingMovesButtonsWrapper>
           ) : (

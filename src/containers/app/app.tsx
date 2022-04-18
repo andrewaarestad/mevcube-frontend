@@ -8,6 +8,8 @@ import {useWallet} from "use-wallet";
 import Environment from "../../config/environment";
 import {WalletConnectedCube} from "./wallet-connected-cube";
 import styled from "styled-components";
+import {useTypedSelector} from "../../store/reducers";
+import {PendingTx} from "./pending-tx";
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -35,6 +37,9 @@ export function App() {
 
   const [chainIdMatches, setChainIdMatches] = useState(true);
   const [walletConnected, setWalletConnected] = useState(false);
+
+
+  const {isAwaitingTxConfirmation} = useTypedSelector(state => state.transactions);
 
   // const attemptChainSwitch = async() => {
   //   console.log('attemptChainSwitch()');
@@ -86,6 +91,10 @@ export function App() {
 
       <CubeProvider/>
 
+      <StyledTitle>
+        mevcube
+      </StyledTitle>
+
       {chainIdMatches ? (
         <WalletConnectedCube/>
       ) : (
@@ -115,10 +124,24 @@ export function App() {
 
       <NavMenu/>
 
+      {isAwaitingTxConfirmation && (
+        <PendingTx/>
+      )}
+
     </>
 
   )
 }
+
+const StyledTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  //padding-bottom: -2rem;
+  font-size: 16px;
+  //background: green;
+`
 
 const StyledChainIdMismatch = styled.div`
   display: flex;
