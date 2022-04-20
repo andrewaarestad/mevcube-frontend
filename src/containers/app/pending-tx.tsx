@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Spacer from "../../components/Spacer";
 
 export const PendingTx = () => {
   return (
@@ -10,6 +9,7 @@ export const PendingTx = () => {
       <br/>
       <StyledText>
         <p>Your moves have been submitted and we are waiting for confirmation...</p>
+        <p>View transactions</p>
       </StyledText>
     </StyledPendingTxWrapper>
   )

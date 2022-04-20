@@ -20,10 +20,10 @@ export default function PendingMoves() {
   // console.log('PendingMoves.render: ', pendingMoves);
 
   const onClickSubmitSolution = () => {
-    dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation(true))
     sendSubmitSolution(pendingMoves, dispatch, ethereum, account)
-    .then(() => {
-      dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation(false))
+    .then(txResult => {
+      dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation({txHash: txResult.transactionHash, flag: true}))
+      // dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation(false))
       dispatch(pollCubeContract())
     })
     .catch(err => {

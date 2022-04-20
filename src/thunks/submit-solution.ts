@@ -18,4 +18,5 @@ export const sendSubmitSolution = async (pendingMoves: Array<string>, dispatch: 
   const txHash = await contract.methods.move(pendingMoves.join('')).send({from: account, value: MevCube.SOLVER_FEE});
   // const txHash = await contract.methods.move(pendingMoves.join('')).send({from: account});
   console.log('move txHash: ', txHash);
+  return txHash;
 }
