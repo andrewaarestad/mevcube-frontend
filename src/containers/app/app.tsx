@@ -10,6 +10,9 @@ import {WalletConnectedCube} from "./wallet-connected-cube";
 import styled from "styled-components";
 import {useTypedSelector} from "../../store/reducers";
 import {PendingTx} from "./pending-tx";
+import {MessageCenter} from "../messages/MessageCenter";
+import {messagesSlice} from "../../store/slices/messages";
+import {useAppDispatch} from "../../store";
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -32,6 +35,8 @@ export function App() {
 //   const app = initializeApp(firebaseConfig);
 //   const analytics = getAnalytics(app);
 
+  const dispatch = useAppDispatch();
+
 
   const {ethereum, chainId} = useWallet();
 
@@ -49,6 +54,10 @@ export function App() {
   //   });
   //   console.log('switchResult: ', switchResult);
   // }
+
+  useEffect(() => {
+    dispatch(messagesSlice.actions.addMessage({title: 'Test Message', body: 'This is a test message, look here for important info soon!'}));
+  }, [dispatch]);
 
   useEffect(() => {
     if (ethereum) {
@@ -124,9 +133,11 @@ export function App() {
 
       <NavMenu/>
 
-      {isAwaitingTxConfirmation && (
-        <PendingTx/>
-      )}
+      <MessageCenter/>
+
+      {/*{isAwaitingTxConfirmation && (*/}
+      {/*  <PendingTx/>*/}
+      {/*)}*/}
 
     </>
 
