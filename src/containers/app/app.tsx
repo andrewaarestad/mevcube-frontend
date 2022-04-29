@@ -8,11 +8,8 @@ import {useWallet} from "use-wallet";
 import Environment from "../../config/environment";
 import {WalletConnectedCube} from "./wallet-connected-cube";
 import styled from "styled-components";
-import {useTypedSelector} from "../../store/reducers";
-import {PendingTx} from "./pending-tx";
 import {MessageCenter} from "../messages/MessageCenter";
-import {messagesSlice} from "../../store/slices/messages";
-import {useAppDispatch} from "../../store";
+import {MostRecentTx} from "./most-recent-tx";
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -35,7 +32,7 @@ export function App() {
 //   const app = initializeApp(firebaseConfig);
 //   const analytics = getAnalytics(app);
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
 
   const {ethereum, chainId} = useWallet();
@@ -44,7 +41,7 @@ export function App() {
   const [walletConnected, setWalletConnected] = useState(false);
 
 
-  const {isAwaitingTxConfirmation} = useTypedSelector(state => state.transactions);
+  // const {isAwaitingTxConfirmation} = useTypedSelector(state => state.transactions);
 
   // const attemptChainSwitch = async() => {
   //   console.log('attemptChainSwitch()');
@@ -55,9 +52,9 @@ export function App() {
   //   console.log('switchResult: ', switchResult);
   // }
 
-  useEffect(() => {
-    dispatch(messagesSlice.actions.addMessage({title: 'Test Message', body: 'This is a test message, look here for important info soon!'}));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(messagesSlice.actions.addMessage({title: 'Test Message', body: 'This is a test message, look here for important info soon!'}));
+  // }, [dispatch]);
 
   useEffect(() => {
     if (ethereum) {
@@ -131,6 +128,10 @@ export function App() {
         <AccountButton />
       </StyledAccountButtonWrapper>
 
+      <StyledMostRecentTxWrapper>
+        <MostRecentTx/>
+      </StyledMostRecentTxWrapper>
+
       <NavMenu/>
 
       <MessageCenter/>
@@ -143,6 +144,13 @@ export function App() {
 
   )
 }
+
+const StyledMostRecentTxWrapper = styled.div`
+
+  position: fixed;
+  left: 40px;
+  top: 120px;
+`
 
 const StyledTitle = styled.div`
   display: flex;

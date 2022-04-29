@@ -5,6 +5,7 @@ import {MevCube} from "../../contracts/mev-cube";
 import {useAppDispatch} from "../../store";
 import {useTypedSelector} from "../../store/reducers";
 import {historySlice} from "../../store/slices/history";
+import {ICubeTransaction} from "../../store/models/i-cube-transaction";
 
 
 export const Leaderboard = () => {
@@ -34,7 +35,7 @@ export const Leaderboard = () => {
       console.log('pastEvents: ', pastEvents);
       setIsLoading(false);
 
-      dispatch(historySlice.actions.setRecentMoves(pastEvents.map(event => ({
+      const mappedEvents: Array<ICubeTransaction> = pastEvents.map(event => ({
         blockHash: event.blockHash,
         blockNumber: event.blockNumber,
         transactionHash: event.transactionHash,
@@ -42,7 +43,10 @@ export const Leaderboard = () => {
           _solver: event.returnValues._solver,
           _solution: event.returnValues._solution
         }
-      }))));
+      }));
+
+      dispatch(historySlice.actions.setMostRecentTransaction(mappedEvents[0]))
+      dispatch(historySlice.actions.setRecentMoves(mappedEvents));
     })
 
 

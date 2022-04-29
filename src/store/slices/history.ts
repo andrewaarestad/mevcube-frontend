@@ -1,11 +1,14 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {ICubeTransaction} from "../models/i-cube-transaction";
 
 interface IHistorySlice {
-  recentMoves: Array<any>
+  recentMoves: Array<ICubeTransaction>
+  mostRecentTransaction: ICubeTransaction | undefined
 }
 
 const initialState: IHistorySlice = {
-  recentMoves: []
+  recentMoves: [],
+  mostRecentTransaction: undefined
 }
 
 export const historySlice = createSlice({
@@ -14,6 +17,9 @@ export const historySlice = createSlice({
   reducers: {
     setRecentMoves: (state, action) => {
       state.recentMoves = action.payload;
+    },
+    setMostRecentTransaction: (state, action) => {
+      state.mostRecentTransaction = action.payload;
     }
   }
 });

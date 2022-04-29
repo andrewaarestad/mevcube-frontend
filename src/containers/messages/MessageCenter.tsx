@@ -8,13 +8,9 @@ export const MessageCenter = () => {
 
   return (
     <StyledMessageCenter>
-      {messages.length > 0 ? (
+      {messages.length > 0 && (
         <>
           <Message message={messages[0]}/>
-        </>
-      ) : (
-        <>
-          <p>No Messages</p>
         </>
       )}
       {/*<p>{messages.length} messages</p>*/}
@@ -31,7 +27,7 @@ const StyledMessageCenter = styled.div`
   padding: 1rem;
 
   //border: solid;
-  background-color: green;
+  //background-color: green;
   // background-color: ${props => props.theme.color.grey[100]};
   // border-color: ${props => props.theme.color.grey[100]};
   // color: ${props => props.theme.color.grey[10]};
