@@ -2,10 +2,39 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {ethers} from "ethers";
 import {MevCube} from "../contracts/mev-cube";
 import Environment from "../config/environment";
+import {ICubeTransaction} from "../store/models/i-cube-transaction";
+import {historySlice} from "../store/slices/history";
 
 interface ICubeContractPollResult {
     state: string,
     version: string
+}
+
+const refreshPastEvents = async() => {
+  if (!window.ethereum) {
+    console.log('warning, cant get past events without wallet provider');
+    return [];
+  }
+  const web3Contract = MevCube.getContract(window.ethereum)
+  return web3Contract.getPastEvents('Solved');
+}
+
+const refreshContractHistory = async() => {
+
+  const pastEvents = await refreshPastEvents();
+  console.log('pastEvents: ', pastEvents);
+
+  const mappedEvents: Array<ICubeTransaction> = pastEvents.map(event => ({
+    blockHash: event.blockHash,
+    blockNumber: event.blockNumber,
+    transactionHash: event.transactionHash,
+    solution: {
+      _solver: event.returnValues._solver,
+      _solution: event.returnValues._solution
+    }
+  }));
+
+  return mappedEvents;
 }
 
 export const pollCubeContract = createAsyncThunk(
@@ -13,12 +42,17 @@ export const pollCubeContract = createAsyncThunk(
   async (_: void, {dispatch, getState}) => {
       const provider = new ethers.providers.JsonRpcProvider(Environment.RPC);
       // console.log('setting up contract');
-      const contract = new ethers.Contract(MevCube.ADDRESS, MevCube.ABI as any, provider.getSigner(Environment.MevCube));
+      const contract = new ethers.Contract(Environment.MevCubeContractAddress, MevCube.ABI as any, provider.getSigner(Environment.MevCubeContractAddress));
       // console.log('Calling contract.getState()', MevCube.ABI);
       const cubeState: string = await contract.getState();
       // console.log('calling getVersion');
       const cubeVersion: string = await contract.getVersion();
       // console.log('contract state: ', result);
+
+    const mappedEvents = await refreshContractHistory();
+
+    dispatch(historySlice.actions.setMostRecentTransaction(mappedEvents[0]))
+    dispatch(historySlice.actions.setRecentMoves(mappedEvents));
 
       return {
           state: convertToString(cubeState),

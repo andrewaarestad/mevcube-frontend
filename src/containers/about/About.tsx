@@ -4,6 +4,7 @@ import React from "react";
 //@ts-ignore
 import Tooltip from "react-simple-tooltip"
 import Spacer from "../../components/Spacer";
+import {UrlGen} from "../../util/url-gen";
 
 
 export const About = () => {
@@ -35,8 +36,8 @@ export const About = () => {
 
         <StyledLinkIcons>
 
-          <Tooltip content="https://github.com/andrewaarestad/mevcube-frontend">
-            <Link href={"https://github.com/andrewaarestad/mevcube-frontend"} target="_blank" rel="noopener noreferrer">
+          <Tooltip content={UrlGen.getGithubSocialUrl()}>
+            <Link href={UrlGen.getGithubSocialUrl()} target="_blank" rel="noopener noreferrer">
               <Icon>
                 <img src={'/github.png'} style={{ height: 32 }}  alt="github"/>
               </Icon>
@@ -45,8 +46,8 @@ export const About = () => {
 
           <Spacer/>
 
-          <Tooltip content="https://twitter.com/mevcube">
-            <Link href={"https://twitter.com/mevcube"} target="_blank" rel="noopener noreferrer">
+          <Tooltip content={UrlGen.getTwitterSocialUrl()}>
+            <Link href={UrlGen.getTwitterSocialUrl()} target="_blank" rel="noopener noreferrer">
               <Icon>
                 <img src={'/twitter.png'} style={{ height: 32 }}  alt="twitter"/>
               </Icon>
@@ -55,8 +56,8 @@ export const About = () => {
 
           <Spacer/>
 
-          <Tooltip content="https://mumbai.polygonscan.com/address/0x6b2Ab1e64c96Bf052F448FCfABB08cB182738bf2">
-            <Link href={"https://mumbai.polygonscan.com/address/0x6b2Ab1e64c96Bf052F448FCfABB08cB182738bf2"} target="_blank" rel="noopener noreferrer">
+          <Tooltip content={UrlGen.getBlockExplorerContractUrl()}>
+            <Link href={UrlGen.getBlockExplorerContractUrl()} target="_blank" rel="noopener noreferrer">
               <Icon>
                 <img src={'/polygon.png'} style={{ height: 32 }}  alt="polygonscan"/>
               </Icon>

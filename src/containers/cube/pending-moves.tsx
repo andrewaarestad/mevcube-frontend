@@ -23,6 +23,7 @@ export default function PendingMoves() {
   const onClickSubmitSolution = () => {
     sendSubmitSolution(pendingMoves, dispatch, ethereum, account)
     .then(txResult => {
+      dispatch(cubeSlice.actions.resetPendingMoves());
       dispatch(messagesSlice.actions.addMessage({title: 'Pending Transaction', body: 'Your moves have been submitted and we are waiting for confirmation...'}))
       dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation({txHash: txResult.transactionHash, flag: true}))
       // dispatch(transactionsSlice.actions.setIsAwaitingTxConfirmation(false))
