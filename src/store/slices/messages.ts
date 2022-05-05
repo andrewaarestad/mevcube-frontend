@@ -15,11 +15,11 @@ export const messagesSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
-    addMessage: (state, action: PayloadAction<{title?: string, body?: string}>) => {
-      state.messages.push({
-        ...action.payload,
-        id: crypto.randomUUID()
-      });
+    addMessage: (state, action: PayloadAction<IMessage>) => {
+      state.messages.push(action.payload);
+      if (state.messages.length > 3) {
+        state.messages = state.messages.slice(0, state.messages.length - 1);
+      }
     },
     removeMessage: (state, action: PayloadAction<string>) => {
       state.messages = state.messages.filter(message => message.id !== action.payload);

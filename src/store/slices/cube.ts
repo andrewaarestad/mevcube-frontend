@@ -19,6 +19,8 @@ interface CubeState {
   pendingMovesResetCounter: number
   currentScreenState: string
   contractVersion: string
+  contractStateIsSolved: boolean
+  currentScrambleRewardHex: string
   currentContractState: string | undefined
   flags: ICubeStateFlags,
   errors: ICubeStateErrors
@@ -30,7 +32,9 @@ const initialState: CubeState = {
   pendingMovesResetCounter: 0,
   currentScreenState: defaultCubeState,
   currentContractState: undefined,
+  currentScrambleRewardHex: '0',
   contractVersion: '0.0.0',
+  contractStateIsSolved: true,
   flags: {
     isLoadingInitialCubeContractState: true,
     isRefreshingCubeState: false
@@ -88,6 +92,8 @@ export const cubeSlice = createSlice({
     addCase(pollCubeContract.fulfilled, (state, action) => {
       state.currentContractState = action.payload.state;
       state.contractVersion = action.payload.version;
+      state.contractStateIsSolved = action.payload.isSolved;
+      state.currentScrambleRewardHex = action.payload.currentScrambleRewardHex;
       state.flags.isLoadingInitialCubeContractState = false;
       state.flags.isRefreshingCubeState = false;
       state.errors.initialLoad = undefined;

@@ -19,7 +19,7 @@ export const MostRecentTx = () => {
         </Link>
       ) : (
         <>
-          You're the first one here! Be the first to submit a solution.
+          {/*You're the first one here! Be the first to submit a solution.*/}
         </>
       )}
 

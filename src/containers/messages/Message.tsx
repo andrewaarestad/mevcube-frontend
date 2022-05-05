@@ -31,6 +31,7 @@ export const Message = ({message}: IMessageProps) => {
       {(message.title || message.body) && (
         <Spacer size={"sm"}/>
       )}
+      <Spacer size={"sm"}/>
       <StyledCancelButton>
         <Button size={"sm"} onClick={cancelButtonClicked}>OK</Button>
       </StyledCancelButton>

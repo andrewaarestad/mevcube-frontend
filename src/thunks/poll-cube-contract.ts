@@ -7,7 +7,9 @@ import {historySlice} from "../store/slices/history";
 
 interface ICubeContractPollResult {
     state: string,
-    version: string
+    version: string,
+    isSolved: boolean,
+  currentScrambleRewardHex: string
 }
 
 const refreshPastEvents = async() => {
@@ -22,7 +24,7 @@ const refreshPastEvents = async() => {
 const refreshContractHistory = async() => {
 
   const pastEvents = await refreshPastEvents();
-  console.log('pastEvents: ', pastEvents);
+  // console.log('pastEvents: ', pastEvents);
 
   const mappedEvents: Array<ICubeTransaction> = pastEvents.map(event => ({
     blockHash: event.blockHash,
@@ -46,8 +48,11 @@ export const pollCubeContract = createAsyncThunk(
       // console.log('Calling contract.getState()', MevCube.ABI);
       const cubeState: string = await contract.getState();
       // console.log('calling getVersion');
-      const cubeVersion: string = await contract.getVersion();
+    const cubeVersion: string = await contract.getVersion();
+    const isSolved: string = await contract.isSolved();
       // console.log('contract state: ', result);
+
+    const currentScrambleReward = await contract.currentScrambleReward();
 
     const mappedEvents = await refreshContractHistory();
 
@@ -55,8 +60,10 @@ export const pollCubeContract = createAsyncThunk(
     dispatch(historySlice.actions.setRecentMoves(mappedEvents));
 
       return {
-          state: convertToString(cubeState),
-          version: convertToString(cubeVersion)
+        state: convertToString(cubeState),
+        version: convertToString(cubeVersion),
+        isSolved: !!isSolved,
+        currentScrambleRewardHex: currentScrambleReward.toString()
       } as ICubeContractPollResult;
   }
 );
