@@ -23,7 +23,10 @@ export const WalletConnectedCube = () => {
   useEffect(() => {
     if (!isLoadingInitialCubeContractState && contractStateIsSolved) {
       console.log('done loading initial contract state');
-      MessagesService.createMessage(dispatch, 'Scramble the cube!', 'The cube is currently solved.  Why don\'t you try scrambling it? The reward for scrambling is currently ' + ethers.utils.parseEther(new ethers.utils.BigNumber(currentScrambleRewardHexRef.current).toString()).toString());
+      MessagesService.createMessage(dispatch, {
+        title: 'Scramble the cube!',
+        body: 'The cube is currently solved.  Why don\'t you try scrambling it? The reward for scrambling is currently ' + ethers.utils.parseEther(new ethers.utils.BigNumber(currentScrambleRewardHexRef.current).toString()).toString()
+      });
       // suggestScramble();
     }
   }, [isLoadingInitialCubeContractState, contractStateIsSolved, dispatch]);

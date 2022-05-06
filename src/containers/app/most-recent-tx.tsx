@@ -14,9 +14,13 @@ export const MostRecentTx = () => {
   return (
     <>
       {mostRecentTransaction ? (
-        <Link href={UrlGen.getBlockExplorerTxUrl(mostRecentTransaction.transactionHash)} target="_blank" rel="noopener noreferrer">
-          Last Solved: {mostRecentTransaction.solution._solution} by {mostRecentTransaction.solution._solver.slice(0,6)} at height {mostRecentTransaction.blockNumber}
-        </Link>
+        <p>
+          Last Solved: &nbsp;
+          <Link href={UrlGen.getBlockExplorerTxUrl(mostRecentTransaction.transactionHash)} target="_blank" rel="noopener noreferrer">
+            {mostRecentTransaction.solution._solution} by {mostRecentTransaction.solution._solver.slice(0,6)} at block {mostRecentTransaction.blockNumber}
+          </Link>
+
+        </p>
       ) : (
         <>
           {/*You're the first one here! Be the first to submit a solution.*/}

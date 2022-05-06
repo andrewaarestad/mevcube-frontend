@@ -18,7 +18,7 @@ const refreshPastEvents = async() => {
     return [];
   }
   const web3Contract = MevCube.getContract(window.ethereum)
-  return web3Contract.getPastEvents('Solved');
+  return web3Contract.getPastEvents('Solved', {fromBlock: 'earliest'});
 }
 
 const refreshContractHistory = async() => {
@@ -36,7 +36,7 @@ const refreshContractHistory = async() => {
     }
   }));
 
-  return mappedEvents;
+  return mappedEvents.reverse();
 }
 
 export const pollCubeContract = createAsyncThunk(
@@ -55,6 +55,8 @@ export const pollCubeContract = createAsyncThunk(
     const currentScrambleReward = await contract.currentScrambleReward();
 
     const mappedEvents = await refreshContractHistory();
+
+    console.log('contract history: ', mappedEvents);
 
     dispatch(historySlice.actions.setMostRecentTransaction(mappedEvents[0]))
     dispatch(historySlice.actions.setRecentMoves(mappedEvents));
