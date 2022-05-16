@@ -20,14 +20,15 @@ const mumbaiEnvironment = {
   RPC: 'https://rpc-mumbai.maticvigil.com',
   BlockExplorer: 'https://mumbai.polygonscan.com',
   // MevCubeContractAddress: '0x6b2Ab1e64c96Bf052F448FCfABB08cB182738bf2'  // contract 1.1.0
-  MevCubeContractAddress: '0xa8127957F90498dAa4c15703Cc19D0d9a5ecD3D4',  // contract 1.2.0
+  // MevCubeContractAddress: '0xa8127957F90498dAa4c15703Cc19D0d9a5ecD3D4',  // contract 1.2.0
+  MevCubeContractAddress: '0x78e1D36ce509D42d694e94b1d9A8A9f9425d704C',  // contract 1.2.1
   ChainId: 80001,
   ChainName: 'Polygon Mumbai Testnet'
 }
 
 const getDevEnvironment = () => {
-  return hhEnvironment;
-  // return mumbaiEnvironment;
+  // return hhEnvironment;
+  return mumbaiEnvironment;
 }
 
 const getProductionEnvironment = () => {
