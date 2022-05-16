@@ -6,7 +6,7 @@ import {ethers} from "ethers";
 
 export class MevCube {
   public static ABI = MevCubeAbi.abi
-  public static SOLVER_FEE = ethers.utils.parseEther("0.01")
+  public static SOLVER_FEE = ethers.utils.parseEther("0.1")
 
   public static getContract(ethereum: any) {
     const web3 = new Web3(ethereum);

@@ -57,6 +57,7 @@ export const pollCubeContract = createAsyncThunk(
     const mappedEvents = await refreshContractHistory();
 
     console.log('contract history: ', mappedEvents);
+    console.log('solver reward: ', currentScrambleReward.toString());
 
     dispatch(historySlice.actions.setMostRecentTransaction(mappedEvents[0]))
     dispatch(historySlice.actions.setRecentMoves(mappedEvents));
