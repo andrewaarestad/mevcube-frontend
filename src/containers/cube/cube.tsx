@@ -1,11 +1,12 @@
 import * as React from "react";
 
-import PendingMoves from "./pending-moves";
 import {cubeSlice} from "../../store/slices/cube";
 import {useAppDispatch} from "../../store";
 import {CubeDomElement} from "./cube-dom-element/cube-dom-element";
 import {useEffect, useState} from "react";
 import {useTypedSelector} from "../../store/reducers";
+import {CubeMoves} from "./moves/cube-moves";
+import styled from "styled-components";
 
 export default function Cube() {
 
@@ -29,7 +30,7 @@ export default function Cube() {
 
   useEffect(() => {
     if (isFirstRender) {
-      console.log('cube: first render');
+      // console.log('cube: first render');
       setIsFirstRender(false);
       CubeDomElement.reset(currentContractState);
     } else {
@@ -67,22 +68,21 @@ export default function Cube() {
   return (
     <>
 
-      <PendingMoves />
-
+      <StyledCubeMovesWrapper>
+        <CubeMoves/>
+      </StyledCubeMovesWrapper>
 
     </>
   )
 }
 
-// const StyledRibbonWrapper = styled.div`
-//   position: fixed;
-//   left: 35px;
-//   bottom: 30px;
-//
-//   //display: flex;
-//   flex-wrap: wrap;
-//   @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-//     flex-direction: column;
-//     flex-wrap: none;
-//   }
-// `
+const StyledCubeMovesWrapper = styled.div`
+  position: fixed;
+  right: 35px;
+  bottom: 30px;
+
+  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+`
