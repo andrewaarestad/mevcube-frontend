@@ -5,6 +5,7 @@ import {useTypedSelector} from "../../store/reducers";
 import {useAppDispatch} from "../../store";
 import {MessagesService} from "../../services/messages-service";
 import {ethers} from "ethers";
+import {BigNumber} from '@ethersproject/bignumber';
 
 export const WalletConnectedCube = () => {
 
@@ -26,7 +27,7 @@ export const WalletConnectedCube = () => {
       console.log('parsing solver reward: ', currentScrambleRewardHex, currentScrambleRewardHexRef.current);
       MessagesService.createMessage(dispatch, {
         title: 'Scramble the cube!',
-        body: 'The cube is currently solved.  Why don\'t you try scrambling it? The reward for scrambling is currently ' + ethers.utils.formatEther(new ethers.utils.BigNumber(currentScrambleRewardHex).toString()).toString() + ' MATIC'
+        body: 'The cube is currently solved.  Why don\'t you try scrambling it? The reward for scrambling is currently ' + ethers.utils.formatEther(BigNumber.from(currentScrambleRewardHex).toString()).toString() + ' MATIC'
       });
       // suggestScramble();
     }

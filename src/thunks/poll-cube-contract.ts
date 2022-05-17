@@ -1,9 +1,13 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {ethers} from "ethers";
+// import {ethers} from "ethers";
 import {MevCube} from "../contracts/mev-cube";
 import Environment from "../config/environment";
 import {ICubeTransaction} from "../store/models/i-cube-transaction";
 import {historySlice} from "../store/slices/history";
+// import {Contract, providers} from "ethers";
+import {Contract} from '@ethersproject/contracts'
+import {getDefaultProvider} from '@ethersproject/providers'
+import {ethers} from "ethers";
 
 interface ICubeContractPollResult {
     state: string,
@@ -18,21 +22,33 @@ const refreshPastEvents = async() => {
     return [];
   }
   const web3Contract = MevCube.getContract(window.ethereum)
-  return web3Contract.getPastEvents('Solved', {fromBlock: 'earliest'});
+
+  console.log('calling getPastEvents');
+  const result = await web3Contract.getPastEvents('Solved', {fromBlock: 'earliest'});
+  console.log('getPastEvents result: ', result);
+  return result;
 }
 
-const refreshContractHistory = async() => {
+const refreshContractHistory = async(contract: Contract) => {
 
-  const pastEvents = await refreshPastEvents();
+  // const pastEvents = await refreshPastEvents();
   // console.log('pastEvents: ', pastEvents);
+
+  console.log('contract: ', contract);
+
+  const blockHeight = await contract.provider.getBlockNumber();
+
+  const pastEvents = await contract.queryFilter(contract.filters.Solved(), blockHeight - 995, 'latest');
+
+  console.log('ethers returned events: ', pastEvents);
 
   const mappedEvents: Array<ICubeTransaction> = pastEvents.map(event => ({
     blockHash: event.blockHash,
     blockNumber: event.blockNumber,
     transactionHash: event.transactionHash,
     solution: {
-      _solver: event.returnValues._solver,
-      _solution: event.returnValues._solution
+      _solver: 'asdf',//event.returnValues._solver,
+      _solution: 'asdf'//event.returnValues._solution
     }
   }));
 
@@ -42,19 +58,23 @@ const refreshContractHistory = async() => {
 export const pollCubeContract = createAsyncThunk(
   'cube/pollCubeContract',
   async (_: void, {dispatch, getState}) => {
-      const provider = new ethers.providers.JsonRpcProvider(Environment.RPC);
-      // console.log('setting up contract');
-      const contract = new ethers.Contract(Environment.MevCubeContractAddress, MevCube.ABI as any, provider.getSigner(Environment.MevCubeContractAddress));
-      // console.log('Calling contract.getState()', MevCube.ABI);
+      // const provider = new ethers.providers.JsonRpcProvider(Environment.RPC);
+      console.log('setting up contract');
+      const provider = getDefaultProvider(Environment.RPC);
+    const contract = new Contract(Environment.MevCubeContractAddress, MevCube.ABI as any, provider);
+    // const contract = new Contract(Environment.MevCubeContractAddress, MevCube.ABI as any, provider.getSigner(Environment.MevCubeContractAddress));
+      console.log('Calling contract.getState()', MevCube.ABI);
       const cubeState: string = await contract.getState();
-      // console.log('calling getVersion');
+      console.log('calling getVersion');
     const cubeVersion: string = await contract.getVersion();
     const isSolved: string = await contract.isSolved();
-      // console.log('contract state: ', result);
+
+    console.log('contract state: ', cubeState);
 
     const currentScrambleReward = await contract.currentScrambleReward();
+    console.log('currentScrambleReward: ', currentScrambleReward);
 
-    const mappedEvents = await refreshContractHistory();
+    const mappedEvents = await refreshContractHistory(contract);
 
     console.log('contract history: ', mappedEvents);
     console.log('solver reward: ', currentScrambleReward.toString());
