@@ -10,6 +10,7 @@ import {useWallet} from "use-wallet";
 import {pollCubeContract} from "../../thunks/poll-cube-contract";
 import {transactionsSlice} from "../../store/slices/transactions";
 import {MessagesService} from "../../services/messages-service";
+import {CubeUtils} from "../../util/cube-utils";
 
 
 export default function PendingMoves() {
@@ -71,7 +72,7 @@ export default function PendingMoves() {
           )}
 
 
-          <p>Pending Moves: {pendingMoves.join(' ')}</p>
+          <p>Pending Moves: {CubeUtils.convertContractMovesToSingmaster(pendingMoves).join(' ')}</p>
         </>
       )}
     </StyledPendingMovesWrapper>

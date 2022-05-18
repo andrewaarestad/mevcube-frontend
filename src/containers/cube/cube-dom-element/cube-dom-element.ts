@@ -1,5 +1,3 @@
-// const [pendingMoves, setPendingMoves] = useState<Array<string>>([]);
-// const pendingMoves: Array<string> = [];
 
 import * as THREE from "three";
 import {LayerModel} from "./models/layer-model";
@@ -288,12 +286,6 @@ async function handleMouseUp() {
 
     CubeDomElement.delegate?.onUserMove(convertNotationsToContractFormat(notations), rubikCube.asString());
 
-    // dispatch(cubeSlice.actions.addPendingMove(notation));
-    // pendingMoves.push(notation);
-    // console.log('pendingMoves: ', pendingMoves);
-
-    // dispatch(cubeSlice.actions.setCurrentScreenState(rubikCube.asString()))
-    // router.search.fd = rubikCube.asString();
   }
 
   // const startRad =(THREE as any).Math.degToRad(deg * sign);

@@ -7,7 +7,6 @@ import {historySlice} from "../store/slices/history";
 // import {Contract, providers} from "ethers";
 import {Contract} from '@ethersproject/contracts'
 import {getDefaultProvider} from '@ethersproject/providers'
-import {ethers} from "ethers";
 
 interface ICubeContractPollResult {
     state: string,
@@ -16,18 +15,18 @@ interface ICubeContractPollResult {
   currentScrambleRewardHex: string
 }
 
-const refreshPastEvents = async() => {
-  if (!window.ethereum) {
-    console.log('warning, cant get past events without wallet provider');
-    return [];
-  }
-  const web3Contract = MevCube.getContract(window.ethereum)
-
-  console.log('calling getPastEvents');
-  const result = await web3Contract.getPastEvents('Solved', {fromBlock: 'earliest'});
-  console.log('getPastEvents result: ', result);
-  return result;
-}
+// const refreshPastEvents = async() => {
+//   if (!window.ethereum) {
+//     console.log('warning, cant get past events without wallet provider');
+//     return [];
+//   }
+//   const web3Contract = MevCube.getContract(window.ethereum)
+//
+//   console.log('calling getPastEvents');
+//   const result = await web3Contract.getPastEvents('Solved', {fromBlock: 'earliest'});
+//   console.log('getPastEvents result: ', result);
+//   return result;
+// }
 
 const refreshContractHistory = async(contract: Contract) => {
 

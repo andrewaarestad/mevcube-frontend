@@ -100,6 +100,10 @@ export function App() {
       <StyledTitle>
         mevcube
       </StyledTitle>
+      <StyledSubtitle>
+        testnet
+      </StyledSubtitle>
+
 
       {chainIdMatches ? (
         <WalletConnectedCube/>
@@ -159,6 +163,16 @@ const StyledTitle = styled.div`
   padding-top: 2rem;
   //padding-bottom: -2rem;
   font-size: 16px;
+  //background: green;
+`
+
+const StyledSubtitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  //padding-bottom: -2rem;
+  font-size: 12px;
   //background: green;
 `
 
