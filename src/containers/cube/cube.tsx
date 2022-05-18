@@ -68,6 +68,11 @@ export default function Cube() {
   return (
     <>
 
+      <StyledCubeDomElementWrapper>
+
+        <div id="cube_dom_element"/>
+      </StyledCubeDomElementWrapper>
+
       <StyledCubeMovesWrapper>
         <CubeMoves/>
       </StyledCubeMovesWrapper>
@@ -76,8 +81,19 @@ export default function Cube() {
   )
 }
 
+const StyledCubeDomElementWrapper = styled.div`
+  left: 16.67%;
+  //right: 10%;
+  position: absolute;
+  //background: yellowgreen;
+  //justify-content: center;
+  z-index:0;
+`
+
 const StyledCubeMovesWrapper = styled.div`
   position: fixed;
+  left: 35px;
+  //background: green;
   right: 35px;
   bottom: 30px;
 

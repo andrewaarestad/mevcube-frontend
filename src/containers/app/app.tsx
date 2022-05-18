@@ -98,11 +98,10 @@ export function App() {
       <CubeProvider/>
 
       <StyledTitle>
-        mevcube
+        <p>mevcube</p>
+        &nbsp;
+        <p>testnet</p>
       </StyledTitle>
-      <StyledSubtitle>
-        testnet
-      </StyledSubtitle>
 
 
       {chainIdMatches ? (
@@ -127,6 +126,10 @@ export function App() {
         </StyledChainIdMismatch>
       )}
 
+      <StyledMovesArea>
+        <p>Moves Area</p>
+      </StyledMovesArea>
+
 
       <StyledAccountButtonWrapper>
         <AccountButton />
@@ -140,6 +143,8 @@ export function App() {
 
       <MessageCenter/>
 
+
+
       {/*{isAwaitingTxConfirmation && (*/}
       {/*  <PendingTx/>*/}
       {/*)}*/}
@@ -148,6 +153,14 @@ export function App() {
 
   )
 }
+
+const StyledMovesArea = styled.div`
+  position: fixed;
+  bottom: 0;
+  height: 33%;
+  width: 100%;
+  background: pink;
+`
 
 const StyledMostRecentTxWrapper = styled.div`
 
@@ -158,12 +171,16 @@ const StyledMostRecentTxWrapper = styled.div`
 
 const StyledTitle = styled.div`
   display: flex;
-  align-items: center;
+  position: absolute;
+  //align-items: center;
   justify-content: center;
   padding-top: 2rem;
   //padding-bottom: -2rem;
   font-size: 16px;
   //background: green;
+  height: 8%;
+  width: 100%;
+  z-index:1000;
 `
 
 const StyledSubtitle = styled.div`

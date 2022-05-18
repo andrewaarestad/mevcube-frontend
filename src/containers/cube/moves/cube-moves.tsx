@@ -2,6 +2,7 @@ import {ScrambleMove} from "../scramble-move";
 import PendingMoves from "../pending-moves";
 import * as React from "react";
 import {useTypedSelector} from "../../../store/reducers";
+import styled from "styled-components";
 
 export const CubeMoves = () => {
 
@@ -12,9 +13,16 @@ export const CubeMoves = () => {
       {pendingMoves.length > 0 ? (
         <PendingMoves />
       ) : contractStateIsSolved && (
-        <ScrambleMove/>
+        <StyledContent>
+          <ScrambleMove/>
+        </StyledContent>
       )}
 
     </>
   )
 }
+
+const StyledContent = styled.div`
+  //background: blue;
+  right: 0;
+`

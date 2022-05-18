@@ -32,7 +32,11 @@ export class CubeDomElement {
 
   public static show() {
     // console.log('CubeDomElement.show()');
-    this.domElement = document.body.appendChild(renderer.domElement);
+    // this.domElement = document.body.appendChild(renderer.domElement);
+    const parent = document.getElementById('cube_dom_element');
+    if (parent) {
+      this.domElement = parent.appendChild(renderer.domElement);
+    }
   }
 
   public static hide() {
@@ -128,6 +132,7 @@ let lockRotationDirection = false;
 
 const scene = new THREE.Scene();
 // scene.add(box);
+// scene.background = new THREE.Color('#5173F3');
 scene.background = new THREE.Color('#F1F3F3');
 // scene.background = new THREE.TextureLoader().load(require('./img/background.jpg').default);
 
@@ -154,7 +159,11 @@ if (screenWidth < 576) {
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
 });
-renderer.setSize(screenWidth, screenHeight);
+
+const SCREEN_RATIO = 0.68
+
+renderer.setSize(screenWidth*SCREEN_RATIO, screenHeight*SCREEN_RATIO);
+// renderer.setViewport(screenWidth/2,screenHeight/2)
 renderer.setPixelRatio( window.devicePixelRatio );
 // const domElement = document.body.appendChild(renderer.domElement);
 

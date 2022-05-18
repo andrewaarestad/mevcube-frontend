@@ -9,26 +9,26 @@ body {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
-canvas {
-    outline: 0;
-    user-select: none;
-}
+//canvas {
+//    outline: 0;
+//    user-select: none;
+//}
 
 .cursor-pointer {
     cursor: pointer;
 }
 
-#ribbon {
-    position: fixed;
-    right: 35px;
-    bottom: 30px;
-    //font-family: 'Open Sans', sans-serif;
-    user-select: none;
-    color: #555;
-    //&.disable {
-    //    color: #aaa;
-    //}
-}
+//#ribbon {
+//    position: fixed;
+//    right: 35px;
+//    bottom: 30px;
+//    //font-family: 'Open Sans', sans-serif;
+//    user-select: none;
+//    color: #555;
+//    //&.disable {
+//    //    color: #aaa;
+//    //}
+//}
 
 
 #current {
@@ -42,13 +42,13 @@ canvas {
     //}
 }
 
-@media screen and (max-width: 768px) {
-    #ribbon {
-        left: 50%;
-        right: initial;
-        transform: translateX(-50%);
-    }
-}
+//@media screen and (max-width: 768px) {
+//    #ribbon {
+//        left: 50%;
+//        right: initial;
+//        transform: translateX(-50%);
+//    }
+//}
 
 .btn {
     display: inline-block;
@@ -57,9 +57,9 @@ canvas {
     padding: 15px 15px;
 }
 
-#ribbon.disable .btn:hover{
-    text-shadow: none;
-}
+//#ribbon.disable .btn:hover{
+//    text-shadow: none;
+//}
 
 .btn:hover {
     text-shadow: 0 0 4px rgba(0,0,0,0.3);
@@ -68,9 +68,9 @@ canvas {
 .btn:checked {
     background: rgba(0,0,0,0.1);
 }
-
-#ribbon.disable .btn:checked{
-    text-shadow: none;
-}
+//
+//#ribbon.disable .btn:checked{
+//    text-shadow: none;
+//}
 
 
