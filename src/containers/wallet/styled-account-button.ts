@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const StyledAccountButtonWrapper = styled.div`
 
 
-  position: fixed;
-  left: 30px;
-  top: 30px;
+  position: absolute;
+  //left: 30px;
+  bottom: 30px;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 
   //font-family: 'Open Sans', sans-serif;

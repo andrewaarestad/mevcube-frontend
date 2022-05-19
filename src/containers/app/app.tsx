@@ -10,6 +10,7 @@ import {WalletConnectedCube} from "./wallet-connected-cube";
 import styled from "styled-components";
 import {MessageCenter} from "../messages/MessageCenter";
 import {MostRecentTx} from "./most-recent-tx";
+import {LeftNav} from "../left-nav/LeftNav";
 
 // import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
@@ -131,15 +132,12 @@ export function App() {
       </StyledMovesArea>
 
 
-      <StyledAccountButtonWrapper>
-        <AccountButton />
-      </StyledAccountButtonWrapper>
 
       <StyledMostRecentTxWrapper>
         <MostRecentTx/>
       </StyledMostRecentTxWrapper>
 
-      <NavMenu/>
+      <LeftNav/>
 
       <MessageCenter/>
 
@@ -180,17 +178,7 @@ const StyledTitle = styled.div`
   //background: green;
   height: 8%;
   width: 100%;
-  z-index:1000;
-`
-
-const StyledSubtitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 10px;
-  //padding-bottom: -2rem;
-  font-size: 12px;
-  //background: green;
+  //z-index:10;
 `
 
 const StyledChainIdMismatch = styled.div`

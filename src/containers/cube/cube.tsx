@@ -87,7 +87,7 @@ const StyledCubeDomElementWrapper = styled.div`
   position: absolute;
   //background: yellowgreen;
   //justify-content: center;
-  z-index:0;
+  z-index:-1;
 `
 
 const StyledCubeMovesWrapper = styled.div`

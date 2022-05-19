@@ -1,0 +1,14 @@
+
+.nav-item {
+  cursor: pointer;
+  padding: 20px;
+}
+.nav-item>* {
+  display: inline;
+}
+.nav-item p {
+  padding-left: 15px;
+}
+//.nav-item i {
+//  display: inline;
+//}
