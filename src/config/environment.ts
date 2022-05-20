@@ -17,7 +17,8 @@ const hhEnvironment = {
 };
 
 const mumbaiEnvironment = {
-  RPC: 'https://rpc-mumbai.maticvigil.com',
+  RPC: 'wss://ws-mumbai.matic.today',
+  // RPC: 'https://rpc-mumbai.maticvigil.com',
   BlockExplorer: 'https://mumbai.polygonscan.com',
   // MevCubeContractAddress: '0x6b2Ab1e64c96Bf052F448FCfABB08cB182738bf2'  // contract 1.1.0
   // MevCubeContractAddress: '0xa8127957F90498dAa4c15703Cc19D0d9a5ecD3D4',  // contract 1.2.0

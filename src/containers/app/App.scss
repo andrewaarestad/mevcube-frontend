@@ -1,0 +1,39 @@
+.app-title {
+  display: flex;
+  position: fixed;
+  //align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  //padding-bottom: -2rem;
+  font-size: 16px;
+  //background: green;
+  top: 0;
+  left: 0;
+  height: 8%;
+  width: 100%;
+  //z-index: 10;
+  //z-index:10;
+}
+
+.app-cube-area {
+  position: fixed;
+  height: 68%;
+  width: 100%;
+  //background: green;
+  z-index: -1;
+}
+
+.app-moves-area {
+  position: fixed;
+  bottom: 0;
+  height: 33%;
+  width: 100%;
+  background: pink;
+}
+
+.app-recent-tx-area {
+
+  position: fixed;
+  left: 40px;
+  top: 120px;
+}

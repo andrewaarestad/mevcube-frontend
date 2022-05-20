@@ -1,14 +1,12 @@
-import styled from "styled-components";
 import Button from "../../components/Button";
 import React, {useState} from "react";
-import {StyledAccountButtonWrapper} from "../wallet/styled-account-button";
 import AccountButton from "../wallet/AccountButton";
-import {Icon} from "../../components/Icon/Icon";
-import Spacer from "../../components/Spacer";
 import "./LeftNav.scss"
 import {LeftNavItem} from "./LeftNavItem";
 import {useAppDispatch} from "../../store";
 import {CurrentScreen, navSlice} from "../../store/slices/nav";
+import {H2} from "../../components/H2/H2";
+import {Icon} from "../../components/Icon/Icon";
 
 export const LeftNav = () => {
 
@@ -30,83 +28,36 @@ export const LeftNav = () => {
   }
 
   return isExpanded ? (
-    <StyledLeftNavContainer>
-      <StyledLeftNav>
-        <StyledNavTitle>mevcube</StyledNavTitle>
+    <div className={'left-nav-container'}>
+      <div className={'left-nav-menu'}>
+        <H2 text={'mevcube'}/>
 
 
-        <StyledNavItem onClick={() => didClickCollapse()}>
-          <StyledAccountButtonWrapper>
-            <AccountButton />
-          </StyledAccountButtonWrapper>
-        </StyledNavItem>
+        <div className={'left-nav-account-button-wrapper'} onClick={() => didClickCollapse()}>
+          <AccountButton />
+        </div>
 
         <LeftNavItem icon={'cube'} title={'Home'} onClick={() => onClickNavLink(CurrentScreen.Home)}/>
         <LeftNavItem icon={'medal'} title={'Leaderboard'} onClick={() => onClickNavLink(CurrentScreen.Leaderboard)}/>
         <LeftNavItem icon={'question'} title={'About'} onClick={() => onClickNavLink(CurrentScreen.About)}/>
 
-        {/*<div className="nav-item">*/}
-        {/*  <Icon type={'medal'}/>*/}
-        {/*  <p>Leaderboard</p>*/}
-        {/*</div>*/}
 
-        {/*<div className="nav-item">*/}
-        {/*  <Icon type={'circle-info'}/>*/}
-        {/*  <p>About</p>*/}
-        {/*</div>*/}
+      </div>
+      <div className={'left-nav-background'} onClick={() => didClickCollapse()}/>
 
-      </StyledLeftNav>
-      <StyledLeftNavBackground onClick={() => didClickCollapse()}/>
-
-    </StyledLeftNavContainer>
+    </div>
 
   ) : (
-    <StyledButtonWrapper>
+    <div className={'left-nav-hamburger-button'}>
       <Button onClick={() => didClickExpand()}>
-        <img src={"/hamburger_icon_64.png"} style={{ height: 25 }} alt={"menu"}/>
+        <Icon type={'bars'} size={'lg'}/>
+        {/*<img src={"/hamburger_icon_64.png"} style={{ height: 25 }} alt={"menu"}/>*/}
       </Button>
       {/*<p>mevcube</p>*/}
-    </StyledButtonWrapper>
+    </div>
   )
 }
 
-const StyledNavTitle = styled.div`
-  padding: 20px;
-`
 
-const StyledNavItem = styled.div`
-  padding: 20px;
-`
 
-const StyledButtonWrapper = styled.div`
 
-  position: fixed;
-  left: 30px;
-  top: 30px;
-  //z-index: 10;
-`
-
-const StyledLeftNavContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  //z-index: 10;
-`
-
-const StyledLeftNav = styled.div`
-  position: absolute;
-  left: 0;
-  height: 100%;
-  width: 75%;
-  //background: greenyellow;
-  background: #999999;
-`
-
-const StyledLeftNavBackground = styled.div`
-  position: absolute;
-  right: 0;
-  height: 100%;
-  width: 25%;
-  backdrop-filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.2);
-`

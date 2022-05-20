@@ -21,6 +21,10 @@ const debug = true;
 
 // const router = new Router();
 
+// const SCREEN_RATIO = 0.68
+const HEIGHT_RATIO = 0.68
+
+
 interface ICubeDomElementDelegate {
   onUserMove(moves: string[], state: string): void;
   onStateChange(state: string): void;
@@ -147,7 +151,7 @@ scene.add(directionalLight2);
 // const ambientLight = new THREE.AmbientLight('#FFF');
 // scene.add(ambientLight);
 
-const camera = new THREE.PerspectiveCamera(20, screenWidth / screenHeight, .1, 660);
+const camera = new THREE.PerspectiveCamera(20, screenWidth / screenHeight / HEIGHT_RATIO, .1, 660);
 camera.zoom = 0.15;
 camera.updateProjectionMatrix();
 if (screenWidth < 576) {
@@ -160,9 +164,10 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true,
 });
 
-const SCREEN_RATIO = 0.68
 
-renderer.setSize(screenWidth*SCREEN_RATIO, screenHeight*SCREEN_RATIO);
+console.log('setting size: ', screenWidth, screenHeight*HEIGHT_RATIO);
+
+renderer.setSize(screenWidth, screenHeight*HEIGHT_RATIO);
 // renderer.setViewport(screenWidth/2,screenHeight/2)
 renderer.setPixelRatio( window.devicePixelRatio );
 // const domElement = document.body.appendChild(renderer.domElement);
@@ -188,9 +193,9 @@ window.addEventListener('resize', debounce(function() {
   screenHeight = window.innerHeight;
   screenCenterCoords.set(screenWidth / 2, screenHeight / 2);
 
-  camera.aspect = screenWidth / screenHeight;
+  camera.aspect = screenWidth / screenHeight / HEIGHT_RATIO;
   camera.updateProjectionMatrix();
-  renderer.setSize(screenWidth, screenHeight);
+  renderer.setSize(screenWidth, screenHeight * HEIGHT_RATIO);
 }));
 
 
@@ -318,7 +323,7 @@ async function handleMouseUp() {
 
 function handleMouseDown() {
   const x = (mouseCoords.x/ screenWidth) * 2 - 1;
-  const y = -(mouseCoords.y/ screenHeight) * 2 + 1;
+  const y = -(mouseCoords.y/ screenHeight/HEIGHT_RATIO) * 2 + 1;
   raycaster.setFromCamera({x, y}, camera);
   const intersects = raycaster.intersectObjects(rubikCube.model.children);
 
@@ -349,7 +354,7 @@ function handleMouseDown() {
 
 function handleMouseMove() {
   const x = (mouseCoords.x/ screenWidth) * 2 - 1;
-  const y = -(mouseCoords.y/ screenHeight) * 2 + 1;
+  const y = -(mouseCoords.y/ screenHeight/HEIGHT_RATIO) * 2 + 1;
 
   raycaster.setFromCamera({x, y}, camera);
   const intersects = raycaster.intersectObjects(rubikCube.model.children);

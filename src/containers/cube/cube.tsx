@@ -6,7 +6,7 @@ import {CubeDomElement} from "./cube-dom-element/cube-dom-element";
 import {useEffect, useState} from "react";
 import {useTypedSelector} from "../../store/reducers";
 import {CubeMoves} from "./moves/cube-moves";
-import styled from "styled-components";
+import "./Cube.scss"
 
 export default function Cube() {
 
@@ -68,37 +68,15 @@ export default function Cube() {
   return (
     <>
 
-      <StyledCubeDomElementWrapper>
-
+      <div className={'cube-dom-element-wrapper'}>
         <div id="cube_dom_element"/>
-      </StyledCubeDomElementWrapper>
+      </div>
 
-      <StyledCubeMovesWrapper>
+      <div className={'cube-moves-wrapper'}>
         <CubeMoves/>
-      </StyledCubeMovesWrapper>
+      </div>
 
     </>
   )
 }
 
-const StyledCubeDomElementWrapper = styled.div`
-  left: 16.67%;
-  //right: 10%;
-  position: absolute;
-  //background: yellowgreen;
-  //justify-content: center;
-  z-index:-1;
-`
-
-const StyledCubeMovesWrapper = styled.div`
-  position: fixed;
-  left: 35px;
-  //background: green;
-  right: 35px;
-  bottom: 30px;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-`

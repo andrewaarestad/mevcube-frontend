@@ -1,13 +1,13 @@
-import {CubeLoading} from "./cube-loading";
-import {CubeLoaded} from "./cube-loaded";
+import {CubeLoading} from "../cube-loading/cube-loading";
+import {CubeLoaded} from "../cube-loaded/cube-loaded";
 import React, {useEffect, useRef} from "react";
-import {useTypedSelector} from "../../store/reducers";
-import {useAppDispatch} from "../../store";
-import {MessagesService} from "../../services/messages-service";
+import {useTypedSelector} from "../../../store/reducers";
+import {useAppDispatch} from "../../../store";
+import {MessagesService} from "../../../services/messages-service";
 import {ethers} from "ethers";
 import {BigNumber} from '@ethersproject/bignumber';
 
-export const WalletConnectedCube = () => {
+export const CubeLoader = () => {
 
   const dispatch = useAppDispatch();
   const {flags: {isLoadingInitialCubeContractState}, contractStateIsSolved, currentScrambleRewardHex} = useTypedSelector(state => state.cube);

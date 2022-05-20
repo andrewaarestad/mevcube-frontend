@@ -6,8 +6,10 @@ export const LeftNavItem = (props: {icon: string, title: string, onClick: () => 
 
   return (
     <div className="nav-item" onClick={() => props.onClick()}>
-      <Icon type={props.icon}/>
-      <p>{props.title}</p>
+      <div className={'nav-item-text'}>
+        <Icon type={props.icon}/>
+        <p>{props.title}</p>
+      </div>
     </div>
   )
 }
