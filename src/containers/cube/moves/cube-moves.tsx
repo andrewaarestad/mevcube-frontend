@@ -11,6 +11,7 @@ import {pollCubeContract} from "../../../thunks/poll-cube-contract";
 import {useAppDispatch} from "../../../store";
 import {CubeUtils} from "../../../util/cube-utils";
 import Spacer from "../../../components/Spacer";
+import {sendScrambleCube} from "../../../thunks/scramble-cube";
 
 export const CubeMoves = () => {
 
@@ -19,10 +20,16 @@ export const CubeMoves = () => {
   const {ethereum, account} = useWallet();
 
   const onClickScramble = () => {
+    console.log('onClickReset');
+    sendScrambleCube(dispatch, ethereum, account)
+    .then(result => {
+      console.log('scramble result: ', result);
+    })
 
   }
 
   const onClickReset = () => {
+    console.log('onClickReset');
     dispatch(cubeSlice.actions.resetPendingMoves())
   }
 
@@ -51,47 +58,49 @@ export const CubeMoves = () => {
         <div className={'cube-moves-wallet-connected'}>
           {pendingMoves.length > 0 ? (
             <div className='pending-moves-wrapper'>
+              <div className='cube-moves-title'>
+                <p>Pending Moves: {CubeUtils.convertContractMovesToSingmaster(pendingMoves).join(' ')}</p>
+              </div>
+              <div className="cube-moves-buttons">
 
-              {pendingMoves.length > 0 && (
-                <>
-                  <p>Pending Moves: {CubeUtils.convertContractMovesToSingmaster(pendingMoves).join(' ')}</p>
+                <div className='cube-moves-button'>
+                  <Button onClick={() => onClickReset()}>
+                    Reset
+                  </Button>
+                </div>
+
+                <Spacer size={"sm"}/>
+
+                {account ? (
 
                   <div className='cube-moves-button'>
-                    <Button onClick={() => onClickReset()}>
-                      Reset
+                    <Button onClick={() => onClickSubmitSolution()}>
+                      Submit Moves
                     </Button>
                   </div>
-
-                  <Spacer size={"sm"}/>
-
-                  {account ? (
-
-                    <div className='pending-moves-buttons-wrapper'>
-
-                      <div className='cube-moves-button'>
-                        <Button onClick={() => onClickSubmitSolution()}>
-                          Submit Moves
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <p>Connect wallet to submit your moves</p>
-                    </div>
-                  )}
+                ) : (
+                  <div>
+                    <p>Connect wallet to submit your moves</p>
+                  </div>
+                )}
 
 
-                </>
-              )}
+              </div>
             </div>
 
           ) : contractStateIsSolved && (
-            <div>
-              <p className='cube-moves-title'>The cube is currently solved. You can scramble it: </p>
-              <div className={'cube-moves-button cube-moves-scramble'}>
-                <Button onClick={() => onClickScramble()}>
-                  Scramble
-                </Button>
+            <div className="pending-moves-wrapper">
+
+              <div className='cube-moves-title'>
+                <p>The cube is currently solved.  </p>
+                <p>You can scramble it to collect a reward!</p>
+              </div>
+              <div className="cube-moves-buttons">
+                <div className={'cube-moves-button '}>
+                  <Button onClick={() => onClickScramble()}>
+                    Scramble
+                  </Button>
+                </div>
               </div>
             </div>
           )}

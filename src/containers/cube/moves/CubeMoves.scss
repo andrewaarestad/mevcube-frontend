@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.cube-moves-wallet-connected {
+  //background: bisque;
+}
+
 
 .vertical-center {
   margin: 0;
@@ -15,22 +19,34 @@
 
 .cube-moves-title {
   padding: 1rem;
+  //background: brown;
 }
 
 .cube-moves-button {
   width: 25%;
+  @media (max-width: 768px) {
+    width: 50%;
+  }
 }
 
-.cube-moves-scramble {
+.cube-moves-buttons {
   position: absolute;
   //padding: 2rem;
   left: 15px;
+  right: 15px;
+  display: flex;
+  bottom: 15px;
+
+
+  //background: aquamarine;
+
+
 }
 
 .pending-moves-wrapper {
-  position: fixed;
-  right: 35px;
-  bottom: 30px;
+  //position: fixed;
+  //right: 35px;
+  //bottom: 30px;
 
   //display: flex;
   //flex-wrap: wrap;
@@ -38,17 +54,18 @@
     flex-direction: column;
     flex-wrap: nowrap;
   }
+  //background: green;
 }
 
-.pending-moves-buttons-wrapper {
-  //position: fixed;
-  //right: 35px;
-  //bottom: 30px;
-
-  display: flex;
-  //flex-wrap: wrap;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
-}
+//.pending-moves-buttons-wrapper {
+//  //position: fixed;
+//  //right: 35px;
+//  //bottom: 30px;
+//
+//  display: flex;
+//  //flex-wrap: wrap;
+//  @media (max-width: 768px) {
+//    flex-direction: column;
+//    flex-wrap: nowrap;
+//  }
+//}
