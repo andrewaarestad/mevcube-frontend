@@ -10,6 +10,7 @@ import {MostRecentTx} from "./most-recent-tx";
 import {LeftNav} from "../left-nav/LeftNav";
 import "./App.scss"
 import {ChainMismatch} from "./chain-mismatch/ChainMismatch";
+import {CubeMoves} from "../cube/moves/cube-moves";
 
 
 export function App() {
@@ -79,7 +80,7 @@ export function App() {
 
       <div className={'app-moves-area'}>
 
-        <p>Moves Area</p>
+        <CubeMoves/>
       </div>
 
 
