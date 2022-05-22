@@ -8,13 +8,13 @@ interface IEnvironment {
   ChainIdHex: () => string
 }
 
-const hhEnvironment = {
-  RPC: 'http://localhost:8545',
-  BlockExplorer: 'http://localhost:4444',
-  MevCubeContractAddress: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
-  ChainId: 1337,
-  ChainName: 'Local Hardhat Network'
-};
+// const hhEnvironment = {
+//   RPC: 'http://localhost:8545',
+//   BlockExplorer: 'http://localhost:4444',
+//   MevCubeContractAddress: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+//   ChainId: 1337,
+//   ChainName: 'Local Hardhat Network'
+// };
 
 const mumbaiEnvironment = {
   RPC: 'wss://ws-mumbai.matic.today',

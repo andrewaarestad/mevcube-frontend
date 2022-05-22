@@ -1,17 +1,17 @@
 import * as React from "react";
-import {useTypedSelector} from "../../../store/reducers";
+import {useTypedSelector} from "../../../../store/reducers";
 import {useWallet} from "use-wallet";
 import "./CubeMoves.scss"
-import Button from "../../../components/Button";
-import {sendSubmitSolution} from "../../../thunks/submit-solution";
-import {cubeSlice} from "../../../store/slices/cube";
-import {MessagesService} from "../../../services/messages-service";
-import {transactionsSlice} from "../../../store/slices/transactions";
-import {pollCubeContract} from "../../../thunks/poll-cube-contract";
-import {useAppDispatch} from "../../../store";
-import {CubeUtils} from "../../../util/cube-utils";
-import Spacer from "../../../components/Spacer";
-import {sendScrambleCube} from "../../../thunks/scramble-cube";
+import Button from "../../../../components/Button";
+import {sendSubmitSolution} from "../../../../thunks/submit-solution";
+import {cubeSlice} from "../../../../store/slices/cube";
+import {MessagesService} from "../../../../services/messages-service";
+import {transactionsSlice} from "../../../../store/slices/transactions";
+import {pollCubeContract} from "../../../../thunks/poll-cube-contract";
+import {useAppDispatch} from "../../../../store";
+import {CubeUtils} from "../../../../util/cube-utils";
+import Spacer from "../../../../components/Spacer";
+import {sendScrambleCube} from "../../../../thunks/scramble-cube";
 
 export const CubeMoves = () => {
 

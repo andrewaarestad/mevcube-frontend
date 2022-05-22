@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import {cubeSlice} from "../../store/slices/cube";
-import {useAppDispatch} from "../../store";
+import {cubeSlice} from "../../../store/slices/cube";
+import {useAppDispatch} from "../../../store";
 import {CubeDomElement} from "./cube-dom-element/cube-dom-element";
 import {useEffect, useState} from "react";
-import {useTypedSelector} from "../../store/reducers";
+import {useTypedSelector} from "../../../store/reducers";
 import {CubeMoves} from "./moves/cube-moves";
 import "./Cube.scss"
 

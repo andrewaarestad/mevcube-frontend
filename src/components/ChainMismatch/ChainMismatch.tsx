@@ -1,4 +1,4 @@
-import Environment from "../../../config/environment";
+import Environment from "../../config/environment";
 import React from "react";
 import styled from "styled-components";
 

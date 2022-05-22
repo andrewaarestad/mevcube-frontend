@@ -1,18 +1,19 @@
-import {CubeLoading} from "../cube-loading/cube-loading";
-import {CubeLoaded} from "../cube-loaded/cube-loaded";
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import {useTypedSelector} from "../../../store/reducers";
-import {useAppDispatch} from "../../../store";
-import {MessagesService} from "../../../services/messages-service";
-import {ethers} from "ethers";
-import {BigNumber} from '@ethersproject/bignumber';
+import Cube from "../cube/cube";
+import {UnconnectedCube} from "../cube/unconnected-cube";
+import "./CubeLoader.scss"
 
 export const CubeLoader = () => {
 
-  const dispatch = useAppDispatch();
-  const {flags: {isLoadingInitialCubeContractState}, contractStateIsSolved, currentScrambleRewardHex} = useTypedSelector(state => state.cube);
+  const {flags: {isLoadingInitialCubeContractState}} = useTypedSelector(state => state.cube);
 
-  const currentScrambleRewardHexRef = useRef(currentScrambleRewardHex);
+  const {currentContractState} = useTypedSelector(state => state.cube);
+  // const currentScrambleRewardHexRef = useRef(currentScrambleRewardHex);
+
+
+  const {errors} = useTypedSelector(state => state.cube);
+
   // const suggestScramble = useCallback(() => {
   //   if (contractStateIsSolved) {
   //     callbacks.register(messageId, () => {
@@ -36,9 +37,28 @@ export const CubeLoader = () => {
   return (
     <>
       {isLoadingInitialCubeContractState ? (
-        <CubeLoading/>
+        <>
+          {errors.initialLoad ? (
+          <div className={'cube-loading-error'}>
+            <p>Looks like we are having technical difficulties.  Please try again later.
+              <br/><br/>
+              {errors.initialLoad.error.message}
+            </p>
+          </div>
+          ) : (
+          <div className={'cube-loading-progress'}>
+            <p>Loading...</p>
+          </div>
+          )}
+        </>
       ) : (
-        <CubeLoaded/>
+        <>
+          {currentContractState ? (
+            <Cube/>
+          ) : (
+            <UnconnectedCube/>
+          )}
+        </>
       )}
     </>
   )
