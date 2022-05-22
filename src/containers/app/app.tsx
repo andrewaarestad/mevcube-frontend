@@ -94,7 +94,7 @@ export function App() {
       <LeftNav/>
 
 
-      <MessageCenter/>
+      {/*<MessageCenter/>*/}
 
 
 

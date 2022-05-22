@@ -54,62 +54,64 @@ export const CubeMoves = () => {
 
   return (
     <>
-      {account ? (
-        <div className={'cube-moves-wallet-connected'}>
-          {pendingMoves.length > 0 ? (
-            <div className='pending-moves-wrapper'>
-              <div className='cube-moves-title'>
-                <p>Pending Moves: {CubeUtils.convertContractMovesToSingmaster(pendingMoves).join(' ')}</p>
-              </div>
-              <div className="cube-moves-buttons">
 
-                <div className='cube-moves-button'>
-                  <Button onClick={() => onClickReset()}>
-                    Reset
-                  </Button>
-                </div>
+      {pendingMoves.length > 0 ? (
+        <>
+          <div className='cube-moves-title'>
+            <p>Pending Moves: {CubeUtils.convertContractMovesToSingmaster(pendingMoves).join(' ')}</p>
+          </div>
 
-                <Spacer size={"sm"}/>
+          {!account && (
+            <div  className='cube-moves-title'>
+              <p>Connect wallet to submit your moves</p>
+            </div>
+          )}
 
-                {account ? (
-
-                  <div className='cube-moves-button'>
-                    <Button onClick={() => onClickSubmitSolution()}>
-                      Submit Moves
-                    </Button>
-                  </div>
-                ) : (
-                  <div>
-                    <p>Connect wallet to submit your moves</p>
-                  </div>
-                )}
-
-
-              </div>
+          <div className="cube-moves-buttons">
+            <div className='cube-moves-button'>
+              <Button onClick={() => onClickReset()}>
+                Reset
+              </Button>
             </div>
 
-          ) : contractStateIsSolved && (
-            <div className="pending-moves-wrapper">
+            {account &&
+              <>
+                <Spacer size={"sm"}/>
+                <div className='cube-moves-button'>
+                  <Button onClick={() => onClickSubmitSolution()}>
+                    Submit Moves
+                  </Button>
+                </div>
+              </>
+            }
+          </div>
 
-              <div className='cube-moves-title'>
-                <p>The cube is currently solved.  </p>
-                <p>You can scramble it to collect a reward!</p>
-              </div>
-              <div className="cube-moves-buttons">
+        </>
+      ) : (
+        <>
+          {contractStateIsSolved && (
+          <div className="pending-moves-wrapper">
+
+            <div className='cube-moves-title'>
+              <p>The cube is currently solved.  </p>
+              <p>You can scramble it to collect a reward!</p>
+            </div>
+            <div className="cube-moves-buttons">
+              {account ? (
                 <div className={'cube-moves-button '}>
                   <Button onClick={() => onClickScramble()}>
                     Scramble
                   </Button>
                 </div>
-              </div>
+              ) : (
+                <p>Connect wallet to scramble the cube</p>
+              )}
             </div>
+          </div>
           )}
-        </div>
-      ) : (
-        <div className={'cube-moves-connect-wallet'}>
-          <p className={'vertical-center'}>Connect wallet to interact with cube</p>
-        </div>
+        </>
       )}
+
 
 
     </>

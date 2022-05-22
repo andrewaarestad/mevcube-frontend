@@ -49,7 +49,7 @@ export const LeftNav = () => {
 
   ) : (
     <div className={'left-nav-hamburger-button'}>
-      <Button onClick={() => didClickExpand()}>
+      <Button size={'md'} onClick={() => didClickExpand()}>
         <Icon type={'bars'} size={'lg'}/>
         {/*<img src={"/hamburger_icon_64.png"} style={{ height: 25 }} alt={"menu"}/>*/}
       </Button>
