@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {useWallet} from "use-wallet";
 import {useTypedSelector} from "../../store/reducers";
+import React from "react";
 
 
 export const Leaderboard = () => {
@@ -24,9 +25,15 @@ export const Leaderboard = () => {
   return (
     <StyledAbout>
       <StyledText>
-        <StyledAbout>
-          <h1>Recent Activity</h1>
-        </StyledAbout>
+
+
+
+        <div className={'app-title'}>
+          <p>recent</p>
+          &nbsp;
+          <p>activity</p>
+        </div>
+
         <br/>
 
 

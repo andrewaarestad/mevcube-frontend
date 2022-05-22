@@ -9,34 +9,17 @@ import {useTypedSelector} from "../../../store/reducers";
 
 export const CubeLoaded = () => {
 
-  const {currentScreen} = useTypedSelector(state => state.nav);
   const {currentContractState} = useTypedSelector(state => state.cube);
 
   return (
     <>
 
-
-      {currentScreen === CurrentScreen.Home && (
-        <>
-          {currentContractState ? (
-            <Cube/>
-          ) : (
-            <UnconnectedCube/>
-          )}
-        </>
+      {currentContractState ? (
+        <Cube/>
+      ) : (
+        <UnconnectedCube/>
       )}
 
-      {currentScreen === CurrentScreen.About && (
-        <>
-          <About/>
-        </>
-      )}
-
-      {currentScreen === CurrentScreen.Leaderboard && (
-        <>
-          <Leaderboard/>
-        </>
-      )}
 
 
     </>

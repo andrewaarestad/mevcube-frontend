@@ -1,20 +1,13 @@
-import React, {useEffect, useState} from "react";
-
-import {CubeProvider} from "../../contexts/cube-provider";
 import {useWallet} from "use-wallet";
+import React, {useEffect, useState} from "react";
 import Environment from "../../config/environment";
-import {CubeLoader} from "./cube-loader/cube-loader";
-import styled from "styled-components";
-import {MessageCenter} from "../messages/MessageCenter";
-import {MostRecentTx} from "./most-recent-tx";
-import {LeftNav} from "../left-nav/LeftNav";
-import "./App.scss"
-import {ChainMismatch} from "./chain-mismatch/ChainMismatch";
+import {CubeProvider} from "../../contexts/cube-provider";
+import {CubeLoader} from "../app/cube-loader/cube-loader";
+import {ChainMismatch} from "../app/chain-mismatch/ChainMismatch";
 import {CubeMoves} from "../cube/moves/cube-moves";
+import {LeftNav} from "../left-nav/LeftNav";
 
-
-export function App() {
-
+export const Home = () => {
 
   const {ethereum, chainId} = useWallet();
 
@@ -63,7 +56,6 @@ export function App() {
       <CubeProvider/>
 
       <div className={'app-title'}>
-
         <p>mevcube</p>
         &nbsp;
         <p>testnet</p>
@@ -84,14 +76,13 @@ export function App() {
       </div>
 
 
-      <div className={'app-recent-tx-area'}>
+      {/*<div className={'app-recent-tx-area'}>*/}
 
-        <MostRecentTx/>
-      </div>
+      {/*  <MostRecentTx/>*/}
+      {/*</div>*/}
 
 
 
-      <LeftNav/>
 
 
       {/*<MessageCenter/>*/}
@@ -102,7 +93,3 @@ export function App() {
 
   )
 }
-
-
-
-
