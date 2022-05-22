@@ -165,7 +165,6 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 
-console.log('setting size: ', screenWidth, screenHeight*HEIGHT_RATIO);
 
 renderer.setSize(screenWidth, screenHeight*HEIGHT_RATIO);
 // renderer.setViewport(screenWidth/2,screenHeight/2)
@@ -206,7 +205,7 @@ renderer.domElement.addEventListener('mousedown', function() {
 renderer.domElement.addEventListener('touchstart', function(e) {
   const touch = e.changedTouches[0];
   mouseCoords.set(touch.clientX, touch.clientY);
-  console.log('mouseCoords: ', mouseCoords);
+  // console.log('mouseCoords: ', mouseCoords);
   handleMouseDown();
 });
 

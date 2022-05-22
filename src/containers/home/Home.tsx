@@ -2,9 +2,9 @@ import {useWallet} from "use-wallet";
 import React, {useEffect, useState} from "react";
 import Environment from "../../config/environment";
 import {CubeProvider} from "../../contexts/cube-provider";
-import {CubeMoves} from "./cube/moves/cube-moves";
-import {CubeLoader} from "./CubeLoader/cube-loader";
 import {ChainMismatch} from "../../components/ChainMismatch/ChainMismatch";
+import {CubePanel} from "./CubePanel/CubePanel";
+import {CubeMoves} from "./CubeMoves/CubeMoves";
 
 export const Home = () => {
 
@@ -60,7 +60,7 @@ export const Home = () => {
 
       <div className={'app-cube-area'}>
         {chainIdMatches ? (
-          <CubeLoader/>
+          <CubePanel/>
         ) : (
           <ChainMismatch chainId={chainId}/>
         )}

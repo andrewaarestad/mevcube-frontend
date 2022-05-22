@@ -1,10 +1,9 @@
 import React from "react";
 import {useTypedSelector} from "../../../store/reducers";
-import Cube from "../cube/cube";
-import {UnconnectedCube} from "../cube/unconnected-cube";
-import "./CubeLoader.scss"
+import "./CubePanel.scss"
+import CubeWidget from "./CubeWidget/CubeWidget";
 
-export const CubeLoader = () => {
+export const CubePanel = () => {
 
   const {flags: {isLoadingInitialCubeContractState}} = useTypedSelector(state => state.cube);
 
@@ -54,9 +53,11 @@ export const CubeLoader = () => {
       ) : (
         <>
           {currentContractState ? (
-            <Cube/>
+            <CubeWidget/>
           ) : (
-            <UnconnectedCube/>
+            <>
+              <p>Connect to see cube state</p>
+            </>
           )}
         </>
       )}

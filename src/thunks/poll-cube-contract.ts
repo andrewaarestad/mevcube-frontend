@@ -33,14 +33,13 @@ const refreshContractHistory = async(contract: Contract) => {
   // const pastEvents = await refreshPastEvents();
   // console.log('pastEvents: ', pastEvents);
 
-  console.log('contract: ', contract);
+  // console.log('contract: ', contract);
 
   const blockHeight = await contract.provider.getBlockNumber();
 
   const pastEvents = await contract.queryFilter(contract.filters.Solved(), blockHeight - 995, 'latest');
 
-  console.log('ethers returned events: ', pastEvents);
-
+  // console.log('ethers returned events: ', pastEvents);
   const mappedEvents: Array<ICubeTransaction> = pastEvents.map(event => ({
     blockHash: event.blockHash,
     blockNumber: event.blockNumber,
@@ -58,25 +57,25 @@ export const pollCubeContract = createAsyncThunk(
   'cube/pollCubeContract',
   async (_: void, {dispatch, getState}) => {
       // const provider = new ethers.providers.JsonRpcProvider(Environment.RPC);
-      console.log('setting up contract');
+      // console.log('setting up contract');
       const provider = getDefaultProvider(Environment.RPC);
     const contract = new Contract(Environment.MevCubeContractAddress, MevCube.ABI as any, provider);
     // const contract = new Contract(Environment.MevCubeContractAddress, MevCube.ABI as any, provider.getSigner(Environment.MevCubeContractAddress));
-      console.log('Calling contract.getState()', MevCube.ABI);
+    //   console.log('Calling contract.getState()', MevCube.ABI);
       const cubeState: string = await contract.getState();
-      console.log('calling getVersion');
+      // console.log('calling getVersion');
     const cubeVersion: string = await contract.getVersion();
     const isSolved: string = await contract.isSolved();
 
-    console.log('contract state: ', cubeState);
+    // console.log('contract state: ', cubeState);
 
     const currentScrambleReward = await contract.currentScrambleReward();
-    console.log('currentScrambleReward: ', currentScrambleReward);
+    // console.log('currentScrambleReward: ', currentScrambleReward);
 
     const mappedEvents = await refreshContractHistory(contract);
 
-    console.log('contract history: ', mappedEvents);
-    console.log('solver reward: ', currentScrambleReward.toString());
+    // console.log('contract history: ', mappedEvents);
+    // console.log('solver reward: ', currentScrambleReward.toString());
 
     dispatch(historySlice.actions.setMostRecentTransaction(mappedEvents[0]))
     dispatch(historySlice.actions.setRecentMoves(mappedEvents));

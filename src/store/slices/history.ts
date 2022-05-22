@@ -19,7 +19,7 @@ export const historySlice = createSlice({
       state.recentMoves = action.payload;
     },
     setMostRecentTransaction: (state, action) => {
-      console.log('setMostRecentTransaction: ', action.payload);
+      // console.log('setMostRecentTransaction: ', action.payload);
       state.mostRecentTransaction = action.payload;
     }
   }

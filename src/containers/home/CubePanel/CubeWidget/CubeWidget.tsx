@@ -1,14 +1,13 @@
 import * as React from "react";
 
-import {cubeSlice} from "../../../store/slices/cube";
-import {useAppDispatch} from "../../../store";
-import {CubeDomElement} from "./cube-dom-element/cube-dom-element";
+import {cubeSlice} from "../../../../store/slices/cube";
+import {useAppDispatch} from "../../../../store";
+import {CubeDomElement} from "./CubeDomElement/cube-dom-element";
 import {useEffect, useState} from "react";
-import {useTypedSelector} from "../../../store/reducers";
-import {CubeMoves} from "./moves/cube-moves";
-import "./Cube.scss"
+import {useTypedSelector} from "../../../../store/reducers";
+import "./CubeWidget.scss"
 
-export default function Cube() {
+export default function CubeWidget() {
 
   const dispatch = useAppDispatch();
 
@@ -72,9 +71,9 @@ export default function Cube() {
         <div id="cube_dom_element"/>
       </div>
 
-      <div className={'cube-moves-wrapper'}>
-        <CubeMoves/>
-      </div>
+      {/*<div className={'cube-moves-wrapper'}>*/}
+      {/*  <CubeMoves/>*/}
+      {/*</div>*/}
 
     </>
   )
