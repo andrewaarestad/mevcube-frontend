@@ -28,7 +28,6 @@ export const Home = () => {
 
 
   useEffect(() => {
-    console.log('chainId: ', chainId);
     if (ethereum) {
       // console.log('chainId: ', chainId);
       if (chainId === Environment.ChainId) {
