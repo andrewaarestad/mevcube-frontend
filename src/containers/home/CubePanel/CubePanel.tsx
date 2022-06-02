@@ -21,17 +21,7 @@ export const CubePanel = () => {
   //   }
   // }, [callbacks, contractStateIsSolved, dispatch])
 
-  // useEffect(() => {
-  //   if (!isLoadingInitialCubeContractState && contractStateIsSolved) {
-  //     console.log('done loading initial contract state');
-  //     console.log('parsing solver reward: ', currentScrambleRewardHex, currentScrambleRewardHexRef.current);
-  //     MessagesService.createMessage(dispatch, {
-  //       title: 'Scramble the cube!',
-  //       body: 'The cube is currently solved.  Why don\'t you try scrambling it? The reward for scrambling is currently ' + ethers.utils.formatEther(BigNumber.from(currentScrambleRewardHex).toString()).toString() + ' MATIC'
-  //     });
-  //     // suggestScramble();
-  //   }
-  // }, [isLoadingInitialCubeContractState, contractStateIsSolved, dispatch]);
+
 
   return (
     <>

@@ -1,10 +1,12 @@
-import styled from "styled-components";
 import {useTypedSelector} from "../../store/reducers";
 import {Message} from "./Message";
+import "./MessageCenter.scss"
 
 export const MessageCenter = () => {
 
   const {messages} = useTypedSelector(state => state.messages);
+
+  console.log('MessageCenter: messages: ', messages);
 
   return (
     <div className={'message-center-wrapper'}>

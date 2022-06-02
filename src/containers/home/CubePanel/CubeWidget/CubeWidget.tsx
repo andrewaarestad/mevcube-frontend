@@ -92,6 +92,7 @@ export default function CubeWidget() {
         <div id="cube_dom_element"/>
       </div>
 
+
       {/*<div className={'cube-moves-wrapper'}>*/}
       {/*  <CubeMoves/>*/}
       {/*</div>*/}

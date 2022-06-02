@@ -5,6 +5,7 @@ import {CubeProvider} from "../../contexts/cube-provider";
 import {ChainMismatch} from "../../components/ChainMismatch/ChainMismatch";
 import {CubePanel} from "./CubePanel/CubePanel";
 import {CubeMoves} from "./CubeMoves/CubeMoves";
+import {MessageCenter} from "../messages/MessageCenter";
 
 export const Home = () => {
 
@@ -22,7 +23,7 @@ export const Home = () => {
       if (walletConnected) {
         setWalletConnected(false);
       }
-      console.log('chainId: not connected');
+      // console.log('chainId: not connected');
     }
   }, [ethereum, walletConnected])
 
@@ -63,6 +64,8 @@ export const Home = () => {
         ) : (
           <ChainMismatch chainId={chainId}/>
         )}
+
+        <MessageCenter/>
       </div>
 
 

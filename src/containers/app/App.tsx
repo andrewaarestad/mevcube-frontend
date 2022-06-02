@@ -7,12 +7,22 @@ import {About} from "../about/About";
 import {Leaderboard} from "../leaderboard/Leaderboard";
 import {Home} from "../home/Home";
 import {LeftNav} from "../left-nav/LeftNav";
+import {MessagesService} from "../../services/messages-service";
+import {useAppDispatch} from "../../store";
 
 
 export function App() {
 
+  // const dispatch = useAppDispatch();
 
   const {currentScreen} = useTypedSelector(state => state.nav);
+
+  // if (currentScreen === CurrentScreen.Home) {
+  //   MessagesService.createMessage(dispatch, {
+  //     title: 'Scramble the cube!',
+  //     body: 'The cube is currently solved.  Why don\'t you try scrambling it?'
+  //   });
+  // }
 
 
   return (

@@ -18,7 +18,6 @@ export const LeftNav = () => {
   }
 
   const didClickExpand = () => {
-    console.log('didClickExpand');
     setIsExpanded(true)
   }
 
