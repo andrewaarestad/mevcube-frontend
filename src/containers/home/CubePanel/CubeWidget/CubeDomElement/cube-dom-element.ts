@@ -21,6 +21,10 @@ const debug = true;
 
 // const router = new Router();
 
+// const SCREEN_RATIO = 0.68
+const HEIGHT_RATIO = 0.68
+
+
 interface ICubeDomElementDelegate {
   onUserMove(moves: string[], state: string): void;
   onStateChange(state: string): void;
@@ -32,7 +36,11 @@ export class CubeDomElement {
 
   public static show() {
     // console.log('CubeDomElement.show()');
-    this.domElement = document.body.appendChild(renderer.domElement);
+    // this.domElement = document.body.appendChild(renderer.domElement);
+    const parent = document.getElementById('cube_dom_element');
+    if (parent) {
+      this.domElement = parent.appendChild(renderer.domElement);
+    }
   }
 
   public static hide() {
@@ -128,6 +136,7 @@ let lockRotationDirection = false;
 
 const scene = new THREE.Scene();
 // scene.add(box);
+// scene.background = new THREE.Color('#5173F3');
 scene.background = new THREE.Color('#F1F3F3');
 // scene.background = new THREE.TextureLoader().load(require('./img/background.jpg').default);
 
@@ -142,7 +151,7 @@ scene.add(directionalLight2);
 // const ambientLight = new THREE.AmbientLight('#FFF');
 // scene.add(ambientLight);
 
-const camera = new THREE.PerspectiveCamera(20, screenWidth / screenHeight, .1, 660);
+const camera = new THREE.PerspectiveCamera(20, screenWidth / screenHeight / HEIGHT_RATIO, .1, 660);
 camera.zoom = 0.15;
 camera.updateProjectionMatrix();
 if (screenWidth < 576) {
@@ -154,7 +163,11 @@ if (screenWidth < 576) {
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
 });
-renderer.setSize(screenWidth, screenHeight);
+
+
+
+renderer.setSize(screenWidth, screenHeight*HEIGHT_RATIO);
+// renderer.setViewport(screenWidth/2,screenHeight/2)
 renderer.setPixelRatio( window.devicePixelRatio );
 // const domElement = document.body.appendChild(renderer.domElement);
 
@@ -179,9 +192,9 @@ window.addEventListener('resize', debounce(function() {
   screenHeight = window.innerHeight;
   screenCenterCoords.set(screenWidth / 2, screenHeight / 2);
 
-  camera.aspect = screenWidth / screenHeight;
+  camera.aspect = screenWidth / screenHeight / HEIGHT_RATIO;
   camera.updateProjectionMatrix();
-  renderer.setSize(screenWidth, screenHeight);
+  renderer.setSize(screenWidth, screenHeight * HEIGHT_RATIO);
 }));
 
 
@@ -192,7 +205,7 @@ renderer.domElement.addEventListener('mousedown', function() {
 renderer.domElement.addEventListener('touchstart', function(e) {
   const touch = e.changedTouches[0];
   mouseCoords.set(touch.clientX, touch.clientY);
-  console.log('mouseCoords: ', mouseCoords);
+  // console.log('mouseCoords: ', mouseCoords);
   handleMouseDown();
 });
 
@@ -309,7 +322,7 @@ async function handleMouseUp() {
 
 function handleMouseDown() {
   const x = (mouseCoords.x/ screenWidth) * 2 - 1;
-  const y = -(mouseCoords.y/ screenHeight) * 2 + 1;
+  const y = -(mouseCoords.y/ screenHeight/HEIGHT_RATIO) * 2 + 1;
   raycaster.setFromCamera({x, y}, camera);
   const intersects = raycaster.intersectObjects(rubikCube.model.children);
 
@@ -340,7 +353,7 @@ function handleMouseDown() {
 
 function handleMouseMove() {
   const x = (mouseCoords.x/ screenWidth) * 2 - 1;
-  const y = -(mouseCoords.y/ screenHeight) * 2 + 1;
+  const y = -(mouseCoords.y/ screenHeight/HEIGHT_RATIO) * 2 + 1;
 
   raycaster.setFromCamera({x, y}, camera);
   const intersects = raycaster.intersectObjects(rubikCube.model.children);

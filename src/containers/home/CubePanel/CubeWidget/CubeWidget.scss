@@ -1,0 +1,25 @@
+.cube-dom-element-wrapper {
+  //left: 16.67%;
+  //height: 100%;
+  width: 100%;
+  //right: 10%;
+  position: absolute;
+  //background: yellowgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //z-index:-1;
+}
+
+.cube-moves-wrapper {
+  position: fixed;
+  left: 35px;
+  //background: green;
+  right: 35px;
+  bottom: 30px;
+
+  @media (max-width: 768px) {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+}

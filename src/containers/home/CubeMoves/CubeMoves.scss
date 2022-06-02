@@ -1,0 +1,45 @@
+.cube-moves-connect-wallet {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.cube-moves-wallet-connected {
+  //background: bisque;
+}
+
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.cube-moves-title {
+  padding: 1rem;
+  //background: brown;
+}
+
+.cube-moves-button {
+  display: inline-block;
+  width: 25%;
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+}
+
+.cube-moves-buttons {
+  position: absolute;
+  //padding: 2rem;
+  left: 15px;
+  right: 15px;
+  display: flex;
+  bottom: 15px;
+
+
+  //background: aquamarine;
+
+
+}

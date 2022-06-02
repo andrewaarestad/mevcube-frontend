@@ -1,0 +1,30 @@
+.leaderboard-title {
+  display: flex;
+  //position: absolute;
+  //align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  //padding-bottom: -2rem;
+  font-size: 16px;
+  //background: green;
+  //top: 0;
+  //left: 0;
+  height: 8%;
+  width: 100%;
+  //z-index: 10;
+  //z-index:10;
+}
+
+.leaderboard-container {
+  //position: absolute;
+  padding: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-container th {
+  padding: 1rem;
+}

@@ -5,6 +5,7 @@ import {useAppDispatch} from "../../store";
 import {IMessage} from "../../store/models/i-message";
 import {messagesSlice} from "../../store/slices/messages";
 import {UrlGen} from "../../util/url-gen";
+import './MessageCenter.scss'
 
 interface IMessageProps {
   message: IMessage
@@ -19,7 +20,7 @@ export const Message = ({message}: IMessageProps) => {
   }
 
   return (
-    <StyledMessage>
+    <div className={'message'}>
       {message.title && (
         <StyledTitle>{message.title}</StyledTitle>
       )}
@@ -30,9 +31,9 @@ export const Message = ({message}: IMessageProps) => {
         <StyledText>{message.body}</StyledText>
       )}
       {message.transactionHash && (
-          <StyledLink href={UrlGen.getBlockExplorerTxUrl(message.transactionHash)} target="_blank" rel="noopener noreferrer">
-            View on Block Explorer
-          </StyledLink>
+        <StyledLink href={UrlGen.getBlockExplorerTxUrl(message.transactionHash)} target="_blank" rel="noopener noreferrer">
+          View on Block Explorer
+        </StyledLink>
       )}
       {(message.title || message.body) && (
         <Spacer size={"sm"}/>
@@ -41,7 +42,7 @@ export const Message = ({message}: IMessageProps) => {
       <StyledCancelButton>
         <Button size={"sm"} onClick={cancelButtonClicked}>OK</Button>
       </StyledCancelButton>
-    </StyledMessage>
+    </div>
   )
 }
 
@@ -64,23 +65,5 @@ font-size: 12px;
 `
 
 const StyledMessage = styled.div`
-  //position: fixed;
-  //left: 35px;
-  //bottom: 30px;
 
-  border: solid;
-
-  background-color: ${props => props.theme.color.grey[100]};
-  border-color: ${props => props.theme.color.grey[100]};
-  color: ${props => props.theme.color.grey[10]};
-  //display: flex;
-  padding: 1rem;
-
-  border-width: 2px;
-  border-radius: 8px;
-
-  @media (max-width: ${(props) => props.theme.breakpoints.mobile}px) {
-    flex-direction: column;
-    flex-wrap: nowrap;
-  }
 `;
