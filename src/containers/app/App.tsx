@@ -7,8 +7,6 @@ import {About} from "../about/About";
 import {Leaderboard} from "../leaderboard/Leaderboard";
 import {Home} from "../home/Home";
 import {LeftNav} from "../left-nav/LeftNav";
-import {MessagesService} from "../../services/messages-service";
-import {useAppDispatch} from "../../store";
 
 
 export function App() {

@@ -64,6 +64,3 @@ font-size: 12px;
   color: ${props => props.theme.color.grey[10]};
 `
 
-const StyledMessage = styled.div`
-
-`;
